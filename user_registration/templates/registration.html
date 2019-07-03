@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Sign up</title>
+{% endblock %}
+{% block sign_up_or_in %}
+    Sign Up
+{% endblock %}
+
+{% block action %}
+    action="{% url 'user_registration:registration' %}"
+{% endblock %}
+
+{% block username %}
+    <div class="wrap-input100 validate-input m-b-18">
+        <span class="label-input100">Username</span>
+        <input class="input100" type="text" name="namei" placeholder="Enter username">
+        <span class="focus-input100"></span>
+    </div>
+{% endblock %}
+
+{% block login_or_register %}
+    <input class="button" type="submit" value="Register" name="Register" href="#">
+{% endblock %}

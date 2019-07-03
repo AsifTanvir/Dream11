@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Sign in</title>
+{% endblock %}
+{% block sign_up_or_in %}
+    Sign In
+{% endblock %}
+
+{% block action %}
+    action="{% url 'user_registration:loggedIN' %}"
+{% endblock %}
+{% block username %}
+{% endblock %}
+
+{% block login_or_register %}
+    <input class="button" type="submit" value="Login" name="Login" href="#">
+{% endblock %}
