@@ -1,87 +1,130 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{% static 'player/css/table.css' %}">
-    <style>
-        body {
-            background-color: #ddd;
-        }
-        
-        .card {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            max-width: 300px;
-            margin: auto;
-            text-align: center;
-            font-family: arial;
-        }
-        
-        .title {
-            color: grey;
-            font-size: 18px;
-        }
-        
-        button {
-            border: none;
-            outline: 0;
-            display: inline-block;
-            padding: 8px;
-            color: white;
-            background-color: #000;
-            text-align: center;
-            cursor: pointer;
-            width: 100%;
-            font-size: 18px;
-        }
-        
-        a {
-            text-decoration: none;
-            font-size: 22px;
-            color: black;
-        }
-        
-        button:hover,
-        a:hover {
-            opacity: 0.7;
-        }
-    </style>
-</head>
+<link href="{% static 'profile/css/bootstrap.min.css' %}" rel="stylesheet" id="bootstrap-css">
+<link href="{% static 'profile/css/profile.css' %}" rel="stylesheet" id="bootstrap-css">
+<script src="{% static 'profile/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static 'table/images/icons/favicon.ico' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'table/vendor/bootstrap/css/bootstrap.min.css' %} ">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'table/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'table/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'table/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'table/vendor/perfect-scrollbar/perfect-scrollbar.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'table/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'table/css/main.css' %}">
+<!--===============================================================================================-->
+<!------ Include the above in your HEAD tag ---------->
 
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    </head>
 <body>
+<div >
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-12 col-sm-4">
 
+            <div class="card hovercard">
+                <div class="cardheader" style="background: url('{% static 'images/profile4.jpg' %}')">
 
-    <div class="card">
-        <img src="{{ profile.image }}" alt="{{ profile.name }}" style="width:100%">
-        <h1>{{ profile.name }}</h1>
-        <p> {{ profile.role }} </p>
-        <p>{{ profile.country }}</p>
+                </div>
+                <div class="avatar">
+                    <img alt="" src="{{ profile.image }}">
+                </div>
+                <div class="info">
+                    <div class="title">
+                        {{ profile.name }}
+                    </div>
+                    <div class="desc">{{ profile.role }}</div>
+                    <div class="desc">{{ profile.country }}</div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+	</div>
     </div>
-    <div class="point_list">
-        <table class="responstable">
+</div>
 
-            <tr>
+<div class="container">
+  <div class="table-responsive">
+  <div class="table100 ver2 m-b-110">
+					<table data-vertable="ver2">
+						<thead>
+							<tr class="row100 head">
+								<th class="column100 column1" data-column="column1">Week</th>
+								<th class="column100 column2" data-column="column2">Points</th>
 
-                <th>Week</th>
-                <th>Points</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="row100">
+								<td class="column100 column1" data-column="column1">Lawrence Scott</td>
+								<td class="column100 column2" data-column="column2">8:00 AM</td>
 
-            </tr>
+							</tr>
 
-            <tr>
-                <td>week1 </td>
-                <td>45</td>
+							<tr class="row100">
+								<td class="column100 column1" data-column="column1">Jane Medina</td>
+								<td class="column100 column2" data-column="column2">--</td>
+							</tr>
 
-            </tr>
+							<tr class="row100">
+								<td class="column100 column1" data-column="column1">Billy Mitchell</td>
+								<td class="column100 column2" data-column="column2">9:00 AM</td>
+							</tr>
 
-            <tr>
-                <td>week2</td>
-                <td>34</td>
-            </tr>
+							<tr class="row100">
+								<td class="column100 column1" data-column="column1">Beverly Reid</td>
+								<td class="column100 column2" data-column="column2">--</td>
+							</tr>
 
-        </table>
-    </div>
+							<tr class="row100">
+								<td class="column100 column1" data-column="column1">Tiffany Wade</td>
+								<td class="column100 column2" data-column="column2">8:00 AM</td>
 
+							</tr>
+
+							<tr class="row100">
+								<td class="column100 column1" data-column="column1">Sean Adams</td>
+								<td class="column100 column2" data-column="column2">--</td>
+
+							</tr>
+
+							<tr class="row100">
+								<td class="column100 column1" data-column="column1">Rachel Simpson</td>
+								<td class="column100 column2" data-column="column2">9:00 AM</td>
+
+							</tr>
+
+							<tr class="row100">
+								<td class="column100 column1" data-column="column1">Mark Salazar</td>
+								<td class="column100 column2" data-column="column2">8:00 AM</td>
+							
+							</tr>
+						</tbody>
+					</table>
+				</div>
+  </div>
+</div>
+<!--===============================================================================================-->
+	<script src="{% static 'table/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'table/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'table/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'table/vendor/select2/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'table/js/main.js' %}"></script>
 </body>
-
 </html>
