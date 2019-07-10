@@ -13,12 +13,31 @@
 
     <link href="{% static 'css/search.css' %}" rel="stylesheet" />
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <!--
+    <link rel="apple-touch-icon" href="{% static '_team/images/apple-touch-icon.png' %}">
+    <link rel="shortcut icon" type="image/ico" href="{% static '_team/images/favicon.ico' %}" />
+    <!-- Plugin-CSS -->
+    <!--
+    <link rel="stylesheet" href="{% static '_team/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static '_team/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static '_team/css/linearicons.css' %}">
+    <link rel="stylesheet" href="{% static '_team/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static '_team/css/animate.css' %}">
+    <!-- Main-Stylesheets -->
+    <!--
+    <link rel="stylesheet" href="{% static '_team/css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static '_team/style.css' %}">
+    <link rel="stylesheet" href="{% static '_team/css/responsive.css' %}">
+    <script src="{% static '_team/js/vendor/modernizr-2.8.3.min.js' %}"></script> -->
+
 
 </head>
 
 <body>
 
-    <div class="s130">
+        <div class="s130">
         <form action="{% url 'user_registration:search' %}">
             <div class="inner-form">
                 <div class="input-field first-wrap">
@@ -34,8 +53,44 @@
                 </div>
             </div>
             <!-- <span class="info">ex. Game, Music, Video, Photography</span> -->
-        </form>
+      </form>
     </div>
+
+
+
+
+   <!--  <div class="preloader">
+        <span><i class="lnr lnr-sun"></i></span>
+    </div> -->
+    <!-- MainMenu-Area -->
+   <!-- <nav class="mainmenu-area" data-spy="affix" data-offset-top="200">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#primary_menu">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!--<a class="navbar-brand" href="#"><img src="images/logo.png" alt="Logo"></a> -->
+          <!--  </div> -->
+        <div class="container-fluid">
+            <div class="btn-group btn-group-justified">
+
+                    <a href="#" class="btn btn-primary">Wicketkeeper</a>
+                <a href="#" class="btn btn-primary">Batsman</a>
+                  <a href="#" class="btn btn-primary">Bowler</a>
+                  <a href="#" class="btn btn-primary">All Rounder</a>
+
+
+                </div>
+        </div>
+
+    <!--    </div>
+    </nav> -->
+    <!-- MainMenu-Area-End -->
+    <!-- Home-Area -->
+
+
 
     <!-- <div class="search_bar">
         <form action="{% url 'user_registration:search' %}">
@@ -43,9 +98,9 @@
                 <input title="Search" type="submit" class="button">
         </form>
     </div> -->
-
-    {% for i in playerlist %}
-    <div class="profile">
+    <div class="container-fluid">
+        {% for i in playerlist %}
+        <div class="profile">
         <div class="photo"><img src="{{ i.image }}" /></div>
         <div class="content">
             <div class="text">
@@ -59,11 +114,31 @@
         <!--<div class="box"><i class="fa fa-codepen"></i><i class="fa fa-facebook"></i><i class="fa fa-github"></i><i class="fa fa-tumblr"></i><i class="fa fa-twitter"></i></div>-->
     </div>
     {% endfor %}
-    <script src='{% static ' js/jquery-3.4.1.min.js ' %}'></script>
+    </div>
+
+
 
     <script src="{% static 'js/playerListCard.js' %}"></script>
 
     <script src="{% static 'js/search/extention/choices.js' %}"></script>
+     <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+     <script src="{% static 'profile/js/bootstrap.min.js' %}"></script>
+    <!--Vendor-JS-->
+    <!--
+    <script src="{% static '_team/js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static '_team/js/vendor/jquery-ui.js' %}"></script>
+    <script src="{% static '_team/js/vendor/bootstrap.min.js' %}"></script>
+    <!--Plugin-JS-->
+    <!--
+    <script src="{% static '_team/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static '_team/js/contact-form.js' %}"></script>
+    <script src="{% static '_team/js/ajaxchimp.js' %}"></script>
+    <script src="{% static '_team/js/scrollUp.min.js' %}"></script>
+    <script src="j{% static '_team/js/magnific-popup.min.js' %}"></script>
+    <script src="{% static '_team/js/wow.min.js' %}"></script>
+    <!--Main-active-JS-->
+    <!--
+    <script src="{% static '_team/js/main.js' %}"></script> -->
 </body>
 
 </html>
