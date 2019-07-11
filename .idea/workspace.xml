@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="46644447-24b5-4e5c-9154-8b6d6ee3d186" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dream11_frontend/src/Component/Players/css/playerListCard.css" beforeDir="false" afterPath="$PROJECT_DIR$/dream11_frontend/src/Component/Players/css/playerListCard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dream11_frontend/src/Component/Players/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/dream11_frontend/src/Component/Players/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -148,16 +146,16 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dream11_frontend/src/Component/Players/css/playerListCard.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="30" column="14" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
+            <state relative-caret-position="272">
+              <caret line="361" column="29" selection-start-line="361" selection-start-column="29" selection-end-line="361" selection-end-column="29" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dream11_frontend/src/Component/Players/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="156">
@@ -235,8 +233,8 @@
         <option value="$PROJECT_DIR$/dream11_frontend/src/Component/login_registration/index.js" />
         <option value="$PROJECT_DIR$/dream11_frontend/src/Component/login_registration/form.js" />
         <option value="$PROJECT_DIR$/dream11_frontend/src/index.js" />
-        <option value="$PROJECT_DIR$/dream11_frontend/src/Component/Players/css/playerListCard.css" />
         <option value="$PROJECT_DIR$/dream11_frontend/src/Component/Players/index.js" />
+        <option value="$PROJECT_DIR$/dream11_frontend/src/Component/Players/css/playerListCard.css" />
       </list>
     </option>
   </component>
@@ -784,13 +782,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dream11_frontend/src/Component/Players/css/playerListCard.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="30" column="14" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dream11_frontend/src/Component/Players/profile.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-102">
@@ -809,6 +800,13 @@
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dream11_frontend/src/Component/Players/css/playerListCard.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="361" column="29" selection-start-line="361" selection-start-column="29" selection-end-line="361" selection-end-column="29" />
         </state>
       </provider>
     </entry>
