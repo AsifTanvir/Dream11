@@ -21,31 +21,48 @@ body {
     text-align: center;
 }
 .coloredDiv h3{
+
     display: inline-block;
     text-align: center;
 }
 .column {
+    margin: 5px;
   float: left;
-  width: 15%;
-  padding: 0 10px;
+  width: 100px;
     margin-right: 25px;
   transition: all .4s cubic-bezier(0.175, 0.885, 0, 1);
-  background-color: #fff;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0px 13px 10px -7px rgba(0, 0, 0,0.1);
+  box-shadow: 0px 13px 10px -7px #2F4F4F;
 }
 
 .column:hover {
-  box-shadow: 0px 30px 18px -8px rgba(0, 0, 0,0.1);
+  box-shadow: 0px 30px 18px -8px #2F4F4F;
     transform: scale(1.10, 1.10);
 }
+.cards {
 
+    width:100%;
+
+}
+.card_image {
+    width: 100%;
+    max-height: 120px;
+}
+
+.cards:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 /* Remove extra left and right margins, due to padding */
-.row {margin: 0 -5px;}
+.rows {
+    margin: 5px;
+
+}
 
 /* Clear floats after the columns */
-.row:after {
+.rows:after {
   content: "";
   display: table;
   clear: both;
@@ -75,11 +92,14 @@ body {
 }
 .button5 {
     display: inline-block;
-    border-color: #2F4F4F;
+    border: 2px solid  #2F4F4F;
     text-transform: uppercase;
     width: 15%;
     margin-left: 42.5%;
-    margin-right: 42.5%
+    margin-right: 42.5%;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 .button5:hover {
     background-color:#2F4F4F ;
@@ -185,6 +205,7 @@ border-bottom-right-radius: 12px;
 
 .butt {
     text-align: center;
+    margin: 20px;
 }
 
 
@@ -192,11 +213,8 @@ a {
     text-decoration: none;
 }
 .button1 {
-    background-color: white;
-  color: black;
-  border: 2px solid #4CAF50;
+  border: 2px solid #2F4F4F;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  padding: 16px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -205,11 +223,11 @@ a {
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
   cursor: pointer;
+    width:20%;
 }
 
 .button1:hover {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #2F4F4F;
 }
 .profile {
     width: 700px;
@@ -219,7 +237,7 @@ a {
     margin-bottom: 10px;
     transform: translate(-50%, -50%);
     border-radius: 5px;
-    background-color: #fafafa;
+    background-color: #D3D3D3;
     box-shadow: 0 0 2rem #babbbc;
     animation: show-profile 0.5s forwards ease-in-out;
 }
@@ -274,7 +292,7 @@ a {
     position: absolute;
     width: 230px;
     height: 150px;
-    background-color: #e9f3e6;
+    background-color: #2F4F4F;
     left: 0;
     top: -20px;
     z-index: -1;
@@ -295,7 +313,7 @@ a {
 }
 
 .profile .content .btn {
-    background-color: #abc;
+    background-color: #2F4F4F;
     width: 50px;
     height: 50px;
     position: absolute;
@@ -328,7 +346,7 @@ a {
     width: 60%;
     height: 2px;
     position: absolute;
-    background-color: white;
+    background-color: #D3D3D3;
     top: 50%;
     left: 20%;
     transform: translateY(-50%);
@@ -341,7 +359,7 @@ a {
     width: 100%;
     height: 1.5px;
     position: absolute;
-    background-color: white;
+    background-color: #D3D3D3;
     transition-duration: 0.3s;
     transform: rotate(90deg);
     right: 0;

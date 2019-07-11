@@ -162,8 +162,8 @@ export default class Players extends Component {
           <div className="photo"><img src={value.image} /></div>
           <div className="content">
               <div className="text">
-                  <Link to={`/dream11/core/login/loggedIN/${value.name}`}>{value.name}</Link>
-                <h6>{value.country}</h6>
+                  <Link to={`/dream11/core/login/loggedIN/${value.name}`} >{value.name}</Link>
+                  <h6><span className="card__category">{value.country}</span></h6>
               </div>
               <div className="btn" onClick={() => this.handleShow(value.name,value.role,value.country,value.image)}>
                 <span>
@@ -222,9 +222,12 @@ export default class Players extends Component {
             {
                         addedWkt.map(function (value,index) {
                           return  <div class="column">
-                                <div class="card">
-                                  <h3 className="card__title"> {value.name}</h3>
-                                </div>
+
+                              <div className="cards">
+                                  <img className="card-img-top card_image" src={value.image} alt="Card image"
+                                       ></img>
+                              </div>
+
                           </div>
                         })
 
@@ -241,9 +244,12 @@ export default class Players extends Component {
             {
                         addedBatsman.map(function (value,index) {
                           return  <div class="column">
-                                <div class="card">
-                                  <h3 className="card__title"> {value.name}</h3>
-                                </div>
+
+                              <div className="cards">
+                                  <img className="card-img-top card_image" src={value.image} alt="Card image"
+                                       ></img>
+                              </div>
+
                           </div>
                         })
 
@@ -259,10 +265,13 @@ export default class Players extends Component {
             <div className="team_space rows">
             {
                         addedAllrounder.map(function (value,index) {
-                          return <div class="column">
-                                <div class="card">
-                                  <h3 className="card__title"> {value.name}</h3>
-                                </div>
+                          return  <div class="column">
+
+                              <div className="cards">
+                                  <img className="card-img-top card_image" src={value.image} alt="Card image"
+                                       ></img>
+                              </div>
+
                           </div>
                         })
 
@@ -278,10 +287,14 @@ export default class Players extends Component {
             {
                         addedBowler.map(function (value,index) {
                           return  <div class="column">
-                                <div class="card">
-                                  <h3 className="card__title"> {value.name}</h3>
-                                </div>
+
+                              <div className="cards">
+                                  <img className="card-img-top card_image" src={value.image} alt="Card image"
+                                       ></img>
+                              </div>
+
                           </div>
+                        })
 
                             /*<section className="cards">
             <article className="card card--1">
@@ -301,7 +314,7 @@ export default class Players extends Component {
                     </div>
             </article>
         </section>*/
-                        })
+
 
             }
             </div>
@@ -333,16 +346,16 @@ export default class Players extends Component {
             <div className="btn-group btn-group-justified buttons">
                 <div className="btn-group btn-group-justified">
                     <div className="btn-group">
-                        <button type="button" className="btn btn-primary button1" onClick={this.wicketkeeperHandler}>Wicketkeeper</button>
+                        <button type="button" className="btn button1" onClick={this.wicketkeeperHandler}>Wicketkeeper</button>
                     </div>
                     <div className="btn-group">
-                        <button type="button" className="btn btn-primary button1" onClick={this.batsmanHandler}>Batsman</button>
+                        <button type="button" className="btn  button1" onClick={this.batsmanHandler}>Batsman</button>
                     </div>
                     <div className="btn-group">
-                        <button type="button" className="btn btn-primary button1" onClick={this.allrounderHandler}>All rounder</button>
+                        <button type="button" className="btn  button1" onClick={this.allrounderHandler}>All rounder</button>
                     </div>
                     <div className="btn-group">
-                        <button type="button" className="btn btn-primary button1" onClick={this.bowlerHandler}>Bowler</button>
+                        <button type="button" className="btn  button1" onClick={this.bowlerHandler}>Bowler</button>
                     </div>
                 </div>
             </div>
