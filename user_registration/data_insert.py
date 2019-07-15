@@ -17,6 +17,15 @@ def insert_crawled_data():
                 csv_reader = csv.reader(csv_file, delimiter=',')
                 for row in csv_reader:
                     if len(row) == 4:
+                        role = row[2].lower()
+                        if 'allrounder' in role:
+                            row[2] = 'Allrounder'
+                        elif 'wicketkeeper' in role:
+                            row[2] = 'Wicketkeeper'
+                        elif 'batsman' in role:
+                            row[2] = 'Batsman'
+                        elif 'bowler' in role:
+                            row[2] = 'Bowler'
                         insert_player_info_db(row)
                 # pass # do what you want
         except IOError as exc:
