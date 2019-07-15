@@ -15,8 +15,8 @@ export default class Players extends Component {
     this.state = {
       players:[],
       search:'',
-        role:'',
-          playerAdded:false, ///add this
+      role:'',
+      playerAdded:false, ///add this
       addedPlayers:[],
     };
     this.handleShow = this.handleShow.bind(this);
@@ -77,8 +77,8 @@ export default class Players extends Component {
     this.setState({
       role: "wicketkeeper"})
   }
-    handleShow(name,role,country,image){
-      console.log("value" + name +role +country+image);
+  handleShow(name,role,country,image){
+    console.log("value" + name +role +country+image);
     let arr = this.state.addedPlayers.slice();
     let playerClicked = this.state.players.filter( (player) => {
             return player.name.toLowerCase().indexOf(name.toString().toLowerCase()) !== -1 && player.role.toLowerCase().indexOf(role.toString().toLowerCase()) !== -1
@@ -86,7 +86,7 @@ export default class Players extends Component {
         }
 
     )
-      let flag = 0;
+    let flag = 0;
     let i;
     for(i=0; i< arr.length ;i++){
 
@@ -99,7 +99,7 @@ export default class Players extends Component {
     if(flag === 0){
         console.log("ffffffff")
         var person = {name:name, role:role, country:country, image:image};
-      arr.push(person);
+        arr.push(person);
     }
     console.log("arr" + arr);
     this.setState({
@@ -220,16 +220,15 @@ export default class Players extends Component {
             </div>
             <div className="team_space rows">
             {
-                        addedWkt.map(function (value,index) {
-                          return  <div class="column">
+                addedWkt.map(function (value,index) {
+                    return  <div class="column">
 
-                              <div className="cards">
-                                  <img className="card-img-top card_image" src={value.image} alt="Card image"
-                                       ></img>
-                              </div>
+                        <div className="cards">
+                            <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
+                        </div>
 
-                          </div>
-                        })
+                    </div>
+                })
 
             }
             </div>
@@ -242,16 +241,16 @@ export default class Players extends Component {
 
             <div className="team_space rows">
             {
-                        addedBatsman.map(function (value,index) {
-                          return  <div class="column">
+                addedBatsman.map(function (value,index) {
+                    return  <div class="column">
 
-                              <div className="cards">
-                                  <img className="card-img-top card_image" src={value.image} alt="Card image"
-                                       ></img>
-                              </div>
+                        <div className="cards">
+                            <img className="card-img-top card_image" src={value.image} alt="Card image"
+                                ></img>
+                        </div>
 
-                          </div>
-                        })
+                    </div>
+                })
 
             }
             </div>
@@ -264,16 +263,16 @@ export default class Players extends Component {
 
             <div className="team_space rows">
             {
-                        addedAllrounder.map(function (value,index) {
-                          return  <div class="column">
+                addedAllrounder.map(function (value,index) {
+                    return  <div class="column">
 
-                              <div className="cards">
-                                  <img className="card-img-top card_image" src={value.image} alt="Card image"
-                                       ></img>
-                              </div>
+                        <div className="cards">
+                            <img className="card-img-top card_image" src={value.image} alt="Card image"
+                                ></img>
+                        </div>
 
-                          </div>
-                        })
+                    </div>
+                })
 
             }
             </div>
@@ -285,16 +284,15 @@ export default class Players extends Component {
 
             <div className="team_space rows">
             {
-                        addedBowler.map(function (value,index) {
-                          return  <div class="column">
+                addedBowler.map(function (value,index) {
+                    return  <div class="column">
 
-                              <div className="cards">
-                                  <img className="card-img-top card_image" src={value.image} alt="Card image"
-                                       ></img>
-                              </div>
+                        <div className="cards">
+                            <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
+                        </div>
 
-                          </div>
-                        })
+                    </div>
+                })
 
                             /*<section className="cards">
             <article className="card card--1">
