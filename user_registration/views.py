@@ -72,7 +72,8 @@ def register(request):
 
 def Admin(request):
     # crawling()
-    #insert_crawled_data()
+    Players.objects.all().delete()
+    insert_crawled_data()
     return render(request, 'home/admin.html',{})
 
 # Create your views here.
