@@ -20,7 +20,7 @@ import  './css/profile.css';
 //import './css/table/vendor/bootstrap/js/bootstrap.min.js';
 //import './css/table/vendor/bootstrap/js/popper.js';
 //import './css/table/vendor/jquery/jquery-3.2.1.min.js';
- class Profile extends Component {
+class Profile extends Component {
      constructor(props){
          super(props);
          this.state = {

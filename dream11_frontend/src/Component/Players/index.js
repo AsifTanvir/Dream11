@@ -25,6 +25,7 @@ export default class Players extends Component {
     this.batsmanHandler = this.batsmanHandler.bind(this);
     this.bowlerHandler = this.bowlerHandler.bind(this);
     this.wicketkeeperHandler = this.wicketkeeperHandler.bind(this);
+    this.removePlayer = this.removePlayer.bind(this); 
   }
 
   /*componentDidMount() {
@@ -47,14 +48,14 @@ export default class Players extends Component {
     if(status===200)
     {
       const data = promise.data.data;
-        this.setState({players:data});
+      this.setState({players:data});
     }
   }
 
   updateSearch(event){
     this.setState({
       search: event.target.value})
-      console.log(this.state.search);
+      //console.log(this.state.search);
   }
 
 
@@ -78,7 +79,7 @@ export default class Players extends Component {
       role: "wicketkeeper"})
   }
   handleShow(name,role,country,image){
-    console.log("value" + name +role +country+image);
+    //console.log("value" + name +role +country+image);
     let arr = this.state.addedPlayers.slice();
     let playerClicked = this.state.players.filter( (player) => {
             return player.name.toLowerCase().indexOf(name.toString().toLowerCase()) !== -1 && player.role.toLowerCase().indexOf(role.toString().toLowerCase()) !== -1
@@ -101,112 +102,179 @@ export default class Players extends Component {
         var person = {name:name, role:role, country:country, image:image};
         arr.push(person);
     }
-    console.log("arr" + arr);
+    //console.log("arr" + arr);
     this.setState({
       addedPlayers : arr,
       playerAdded : !this.state.playerAdded
     });
-    console.log("addedlist"+this.state.addedPlayers);
+    //console.log("addedlist"+this.state.addedPlayers);
   }
 
- SubmitteamHandler(){
-      console.log("team submitted");
+  SubmitteamHandler(){
+    console.log("team submitted");
+  }
 
- }
+  removePlayer(index){
+    if(window.confirm("Are you sure you want to remove this player?")){
+        let taskList = this.state.addedPlayers.filter((player) => {
+            return player.name !== index;
+        })
+        this.setState({
+            addedPlayers : taskList
+        })
+    }
+  }
+
+    /*removePlayer(id){
+        this.setState(prevState => ({
+            addedPlayers: prevState.addedPlayers.filter(el => el != id )
+        }));
+    }*/
 
   render() {
 
 
-      console.log(this.state.role);
-      let searchPlayer;
-      if( this.state.role.indexOf("batsman") !== -1){
-          searchPlayer = this.state.players.filter(
-              (player) => {
-                  return player.role.toLowerCase().indexOf("wicketkeeper") !== -1 &&
-                      player.name.toLowerCase().indexOf(this.state.search) !== -1;
-                  });
+    //console.log(this.state.role);
+    let searchPlayer;
+    if( this.state.role.indexOf("batsman") !== -1){
+        searchPlayer = this.state.players.filter(
+            (player) => {
+                return player.role.toLowerCase().indexOf("batsman") !== -1 &&
+                    player.name.toLowerCase().indexOf(this.state.search) !== -1;
+                });
 
 
-      }
-      else if( this.state.role.indexOf("bowler")!== -1){
-          searchPlayer = this.state.players.filter(
-              (player) => {
-                  return player.role.toLowerCase().indexOf("bowler") !== -1 &&
-                      player.name.toLowerCase().indexOf(this.state.search) !== -1;
-                  });
-      }
-      else if( this.state.role.indexOf("allrounder") !== -1){
-          searchPlayer = this.state.players.filter(
-              (player) => {
-                  return player.role.toLowerCase().indexOf("allrounder") !== -1 &&
-                      player.name.toLowerCase().indexOf(this.state.search) !== -1;
-                  });
-      }
-      else if(this.state.role.indexOf("wicketkeeper") !== -1){
-            searchPlayer = this.state.players.filter(
-              (player) => {
-                  return player.role.toLowerCase().indexOf("batsman") !== -1 &&
-                      player.name.toLowerCase().indexOf(this.state.search) !== -1;
-                  });
-      }
-      else {
-          searchPlayer = this.state.players.filter(
-          (player) => {
-              return player.name.toLowerCase().indexOf(this.state.search) !== -1;
-          }
-      );
-      }
-     let tagList = searchPlayer.map(function(value,index)
+    }
+    else if( this.state.role.indexOf("bowler")!== -1){
+        searchPlayer = this.state.players.filter(
+            (player) => {
+                return player.role.toLowerCase().indexOf("bowler") !== -1 &&
+                    player.name.toLowerCase().indexOf(this.state.search) !== -1;
+                });
+    }
+    else if( this.state.role.indexOf("allrounder") !== -1){
+        searchPlayer = this.state.players.filter(
+            (player) => {
+                return player.role.toLowerCase().indexOf("allrounder") !== -1 &&
+                    player.name.toLowerCase().indexOf(this.state.search) !== -1;
+                });
+    }
+    else if(this.state.role.indexOf("wicketkeeper") !== -1){
+        searchPlayer = this.state.players.filter(
+            (player) => {
+                return player.role.toLowerCase().indexOf("wicketkeeper") !== -1 &&
+                    player.name.toLowerCase().indexOf(this.state.search) !== -1;
+                });
+    }
+    else {
+        searchPlayer = this.state.players.filter(
+        (player) => {
+            return player.name.toLowerCase().indexOf(this.state.search) !== -1;
+        }
+    );
+    }
+    let tagList = searchPlayer.map(function(value,index)
     {
         return <div className="profile">
-          <div className="photo"><img src={value.image} /></div>
-          <div className="content">
-              <div className="text">
-                  <Link to={`/dream11/core/login/loggedIN/${value.name}`} >{value.name}</Link>
-                  <h6><span className="card__category">{value.country}</span></h6>
-              </div>
-              <div className="btn" onClick={() => this.handleShow(value.name,value.role,value.country,value.image)}>
-                <span>
+        <div className="photo"><img src={value.image} /></div>
+        <div className="content">
+            <div className="text">
+                <Link to={`/dream11/core/login/loggedIN/${value.name}`} >{value.name}</Link>
+                <h6><span className="card__category">{value.country}</span></h6>
+            </div>
+            <div className="btn" onClick={() => this.handleShow(value.name,value.role,value.country,value.image)}>
+            <span>
 
-                </span>
-              </div>
-          </div>
+            </span>
+            </div>
+        </div>
+    </div>
+    }.bind(this));
+    let addedBatsman;
+    let addedBowler;
+    let addedWkt;
+    let addedAllrounder;
+    //console.log(this.state.addedPlayers);
+    if (this.state.addedPlayers !== null) {
+        addedBatsman = this.state.addedPlayers.filter(
+            (player) => {
+                return player.role.toLowerCase().indexOf('batsman') !== -1;
+            }
+        )
+    }
+    if (this.state.addedPlayers !== null) {
+        addedBowler = this.state.addedPlayers.filter(
+            (player) => {
+                return player.role.toLowerCase().indexOf('bowler') !== -1;
+            }
+        )
+    }
+    if (this.state.addedPlayers !== null) {
+        addedWkt = this.state.addedPlayers.filter(
+            (player) => {
+                return player.role.toLowerCase().indexOf('wicketkeeper') !== -1;
+            }
+        )
+    }
+    if (this.state.addedPlayers !== null) {
+        addedAllrounder = this.state.addedPlayers.filter(
+            (player) => {
+                return player.role.toLowerCase().indexOf('allrounder') !== -1;
+            }
+        )
+    }
+
+    let wicketkeeperGeseGa =addedWkt.map(function (value,index) 
+    {
+        return  <div class="column">
+
+            <div className="cards">
+                <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
+                <h6>{value.name.substr(0,value.name.indexOf(' '))}</h6>
+                <div className="btnRmv" onClick={()=> this.removePlayer(value.name)}>Remove  </div>
+            </div>
+
         </div>
     }.bind(this));
-      let addedBatsman;
-      let addedBowler;
-      let addedWkt;
-      let addedAllrounder;
-      console.log(this.state.addedPlayers);
-      if (this.state.addedPlayers !== null) {
-           addedBatsman = this.state.addedPlayers.filter(
-              (player) => {
-                  return player.role.toLowerCase().indexOf('batsman') !== -1;
-              }
-          )
-      }
-      if (this.state.addedPlayers !== null) {
-          addedBowler = this.state.addedPlayers.filter(
-              (player) => {
-                  return player.role.toLowerCase().indexOf('bowler') !== -1;
-              }
-          )
-      }
-      if (this.state.addedPlayers !== null) {
-          addedWkt = this.state.addedPlayers.filter(
-              (player) => {
-                  return player.role.toLowerCase().indexOf('wicketkeeper') !== -1;
-              }
-          )
-      }
-      if (this.state.addedPlayers !== null) {
-          addedAllrounder = this.state.addedPlayers.filter(
-              (player) => {
-                  return player.role.toLowerCase().indexOf('allrounder') !== -1;
-              }
-          )
-      }
 
+    let batsmanGeseGa =addedBatsman.map(function (value,index) 
+    {
+        return  <div class="column">
+
+            <div className="cards">
+                <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
+                <h6>{value.name.substr(0,value.name.indexOf(' '))}</h6>
+                <div className="btnRmv" onClick={()=> this.removePlayer(value.name)}>Remove  </div>
+            </div>
+
+        </div>
+    }.bind(this));
+
+    let allrounderGeseGa =addedAllrounder.map(function (value,index) 
+    {
+        return  <div class="column">
+
+            <div className="cards">
+                <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
+                <h6>{value.name.substr(0,value.name.indexOf(' '))}</h6>
+                <div className="btnRmv" onClick={()=> this.removePlayer(value.name)}>Remove  </div>
+            </div>
+
+        </div>
+    }.bind(this));
+
+    let bowlerGeseGa =addedBowler.map(function (value,index) 
+    {
+        return  <div class="column">
+
+            <div className="cards">
+                <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
+                <h6>{value.name.substr(0,value.name.indexOf(' '))}</h6>
+                <div className="btnRmv" onClick={()=> this.removePlayer(value.name)}>Remove  </div>
+            </div>
+
+        </div>
+    }.bind(this));
 
     //console.log(searchPlayer);
     
@@ -219,18 +287,7 @@ export default class Players extends Component {
             <h3 > <span className="label label-success create_team card__category">Wicketkeeper</span></h3>
             </div>
             <div className="team_space rows">
-            {
-                addedWkt.map(function (value,index) {
-                    return  <div class="column">
-
-                        <div className="cards">
-                            <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
-                        </div>
-
-                    </div>
-                })
-
-            }
+                { wicketkeeperGeseGa}
             </div>
 
         </div>
@@ -240,19 +297,7 @@ export default class Players extends Component {
             </div>
 
             <div className="team_space rows">
-            {
-                addedBatsman.map(function (value,index) {
-                    return  <div class="column">
-
-                        <div className="cards">
-                            <img className="card-img-top card_image" src={value.image} alt="Card image"
-                                ></img>
-                        </div>
-
-                    </div>
-                })
-
-            }
+                { batsmanGeseGa }
             </div>
 
         </div>
@@ -262,19 +307,7 @@ export default class Players extends Component {
             </div>
 
             <div className="team_space rows">
-            {
-                addedAllrounder.map(function (value,index) {
-                    return  <div class="column">
-
-                        <div className="cards">
-                            <img className="card-img-top card_image" src={value.image} alt="Card image"
-                                ></img>
-                        </div>
-
-                    </div>
-                })
-
-            }
+                {allrounderGeseGa}
             </div>
         </div>
         <div className="container team">
@@ -283,47 +316,16 @@ export default class Players extends Component {
             </div>
 
             <div className="team_space rows">
-            {
-                addedBowler.map(function (value,index) {
-                    return  <div class="column">
-
-                        <div className="cards">
-                            <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
-                        </div>
-
-                    </div>
-                })
-
-                            /*<section className="cards">
-            <article className="card card--1">
-                <div className="card__info-hover">
-                </div>
-                <div className="card__img">
-
-                </div>
-                <a href="#" className="card_link">
-                    <div className="card__img--hover">
-
-                    </div>
-                </a>
-                    <div className="card__info">
-                            <h3 className="card__title">{value.name}</h3>
-                            <span className="card__category"> {value.country}</span>
-                    </div>
-            </article>
-        </section>*/
-
-
-            }
+                {bowlerGeseGa}
             </div>
         </div>
+        </div>
+        <div className="container-fluid">
+            <div className="buttfix">
+                <button type="button" className="btn button5" onClick={this.SubmitteamHandler}>Submit Team</button>
             </div>
-            <div className="container-fluid">
-                <div className="buttfix">
-                    <button type="button" className="btn button5" onClick={this.SubmitteamHandler}>Submit Team</button>
-                </div>
 
-             </div>
+        </div>
 
 
       <div className="s130">

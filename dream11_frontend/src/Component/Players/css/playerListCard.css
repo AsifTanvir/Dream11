@@ -2,6 +2,8 @@
 body {
     background-color: #D3D3D3;
 }
+
+
 /*.cards {
     width: 100%;
     display: flex;
@@ -13,71 +15,83 @@ body {
     margin: 15px;
 }*/
 
+
 /*.card--1 .card__img, .card--1 .card__img--hover {
     background-image: url('https://images.pexels.com/photos/45202/brownie-dessert-cake-sweet-45202.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
 }*/
+
 .coloredDiv {
     background-color: #2F4F4F;
     text-align: center;
 }
-.coloredDiv h3{
 
+.coloredDiv h3 {
     display: inline-block;
     text-align: center;
 }
+
 .column {
     margin: 5px;
-  float: left;
-  width: 100px;
+    float: left;
+    width: 100px;
     margin-right: 25px;
-  transition: all .4s cubic-bezier(0.175, 0.885, 0, 1);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0px 13px 10px -7px #2F4F4F;
+    transition: all .4s cubic-bezier(0.175, 0.885, 0, 1);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0px 13px 10px -7px #2F4F4F;
 }
 
 .column:hover {
-  box-shadow: 0px 30px 18px -8px #2F4F4F;
+    box-shadow: 0px 30px 18px -8px #2F4F4F;
     transform: scale(1.10, 1.10);
 }
+
 .cards {
-
-    width:100%;
-
+    width: 100%;
 }
+
 .card_image {
     width: 100%;
     max-height: 120px;
 }
 
 .cards:after {
-  content: "";
-  display: table;
-  clear: both;
+    content: "";
+    display: table;
+    clear: both;
 }
+
+
 /* Remove extra left and right margins, due to padding */
+
 .rows {
     margin: 5px;
-
 }
+
 
 /* Clear floats after the columns */
+
 .rows:after {
-  content: "";
-  display: table;
-  clear: both;
+    content: "";
+    display: table;
+    clear: both;
 }
+
 
 /* Responsive columns */
+
 @media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
-  }
+    .column {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+    }
 }
 
+
 /* Style the counter cards */
+
+
 /*
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -86,24 +100,63 @@ body {
   background-color: #f1f1f1;
 }*/
 
+.img-wraps {
+    position: relative;
+    display: inline-block;
+    font-size: 0;
+}
+
+.img-wraps .closes {
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    z-index: 100;
+    background-color: #FFF;
+    padding: 4px 3px;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    font-size: 22px;
+    line-height: 10px;
+    border-radius: 50%;
+    border: 1px solid red;
+}
+
+.img-wraps:hover .closes {
+    opacity: 1;
+}
+
 .buttfix {
     margin-top: 30px;
     text-align: center;
 }
+
+.btnRmv {
+    margin-top: 10px;
+    background-color: rgba(197, 25, 25, 0.986);
+    text-align: center;
+    cursor: pointer;
+}
+
 .button5 {
     display: inline-block;
-    border: 2px solid  #2F4F4F;
+    border: 2px solid #2F4F4F;
     text-transform: uppercase;
     width: 15%;
     margin-left: 42.5%;
     margin-right: 42.5%;
-    -webkit-transition-duration: 0.4s; /* Safari */
+    -webkit-transition-duration: 0.4s;
+    /* Safari */
     transition-duration: 0.4s;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 .button5:hover {
-    background-color:#2F4F4F ;
+    background-color: #2F4F4F;
 }
+
+
 /*
 .card__img {
   visibility: hidden;
@@ -178,6 +231,7 @@ border-bottom-right-radius: 12px;
     font-size: 20px;
 }
 
+
 /*
 .card:hover .card__img--hover {
     height: 100%;
@@ -194,10 +248,10 @@ border-bottom-right-radius: 12px;
 }
 */
 
-
 .team {
-    margin-top: 50px ;
+    margin-top: 50px;
 }
+
 .create_team {
     margin-left: 40%;
     margin-bottom: 20px;
@@ -208,27 +262,29 @@ border-bottom-right-radius: 12px;
     margin: 20px;
 }
 
-
 a {
     text-decoration: none;
 }
+
 .button1 {
-  border: 2px solid #2F4F4F;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size:12px;
-  margin: 4px 2px;
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-  cursor: pointer;
-    width:20%;
+    border: 2px solid #2F4F4F;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s;
+    /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    width: 20%;
 }
 
 .button1:hover {
-  background-color: #2F4F4F;
+    background-color: #2F4F4F;
 }
+
 .profile {
     width: 700px;
     height: 100px;
@@ -241,9 +297,11 @@ a {
     box-shadow: 0 0 2rem #babbbc;
     animation: show-profile 0.5s forwards ease-in-out;
 }
+
 .buttons {
     margin-bottom: 80px;
 }
+
 @keyframes show-profile {
     0% {
         width: 0;
