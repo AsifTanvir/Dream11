@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'api',
     'core',
     'create_team.apps.CreateTeamConfig',
-    'team',
 ]
 
 MIDDLEWARE = [
