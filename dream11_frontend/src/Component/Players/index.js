@@ -21,6 +21,7 @@ export default class Players extends Component {
     };
     this.handleShow = this.handleShow.bind(this);
     this.loadPlayers = this.loadPlayers.bind(this);
+    this.loadTeamPlayers = this.loadTeamPlayers.bind(this);
     this.allrounderHandler = this.allrounderHandler.bind(this);
     this.batsmanHandler = this.batsmanHandler.bind(this);
     this.bowlerHandler = this.bowlerHandler.bind(this);
@@ -39,6 +40,7 @@ export default class Players extends Component {
   }*/
   componentWillMount(){
     this.loadPlayers();
+    this.loadTeamPlayers();
   }
 
   async loadPlayers()
@@ -49,6 +51,17 @@ export default class Players extends Component {
     {
       const data = promise.data.data;
       this.setState({players:data});
+    }
+  }
+
+  async loadTeamPlayers()
+  {
+    const promise = await axios.get("http://localhost:8000/dream11/api/TeamPlayersData/");
+    const status = promise.status;
+    if(status===200)
+    {
+      const data = promise.data.data;
+      this.setState({addedPlayers:data});
     }
   }
 
@@ -89,6 +102,7 @@ export default class Players extends Component {
     )
     let flag = 0;
     let i;
+    let taskList;
     for(i=0; i< arr.length ;i++){
 
         if(name.toString().toLowerCase().indexOf(arr[i].name.toLowerCase()) !== -1 && role.toString().toLowerCase().indexOf(arr[i].role.toLowerCase()) !== -1
@@ -97,16 +111,22 @@ export default class Players extends Component {
             break;
         }
     }
-    if(flag === 0){
+    if(flag === 0 && this.state.addedPlayers.length < 11){
         console.log("ffffffff")
         var person = {name:name, role:role, country:country, image:image};
         arr.push(person);
+        taskList = this.state.players.filter((player) => {
+            return player.name !== name;
+        })
+
+        this.setState({
+            addedPlayers : arr,
+            players : taskList,
+            playerAdded : !this.state.playerAdded
+        });
     }
     //console.log("arr" + arr);
-    this.setState({
-      addedPlayers : arr,
-      playerAdded : !this.state.playerAdded
-    });
+    
     //console.log("addedlist"+this.state.addedPlayers);
   }
 
@@ -119,17 +139,18 @@ export default class Players extends Component {
         let taskList = this.state.addedPlayers.filter((player) => {
             return player.name !== index;
         })
+        let taskList1 = this.state.addedPlayers.filter((player) => {
+            return player.name === index;
+        })
+        let arr = [...this.state.players];
+        
+        arr.push(taskList1[0]);
         this.setState({
-            addedPlayers : taskList
+            addedPlayers : taskList,
+            players : arr
         })
     }
   }
-
-    /*removePlayer(id){
-        this.setState(prevState => ({
-            addedPlayers: prevState.addedPlayers.filter(el => el != id )
-        }));
-    }*/
 
   render() {
 
@@ -179,7 +200,7 @@ export default class Players extends Component {
         <div className="photo"><img src={value.image} /></div>
         <div className="content">
             <div className="text">
-                <Link to={`/dream11/core/login/loggedIN/${value.name}`} >{value.name}</Link>
+                <Link to={`/dream11/core/login/loggedIN/${value.name}/${value.country}`} >{value.name}</Link>
                 <h6><span className="card__category">{value.country}</span></h6>
             </div>
             <div className="btn" onClick={() => this.handleShow(value.name,value.role,value.country,value.image)}>
@@ -230,7 +251,9 @@ export default class Players extends Component {
 
             <div className="cards">
                 <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
-                <h6>{value.name.substr(0,value.name.indexOf(' '))}</h6>
+                <Link to={`/dream11/core/login/loggedIN/${value.name}/${value.country}`} >
+                    {value.name.substr(0,value.name.indexOf(' '))}
+                </Link>
                 <div className="btnRmv" onClick={()=> this.removePlayer(value.name)}>Remove  </div>
             </div>
 
@@ -243,7 +266,9 @@ export default class Players extends Component {
 
             <div className="cards">
                 <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
-                <h6>{value.name.substr(0,value.name.indexOf(' '))}</h6>
+                <Link to={`/dream11/core/login/loggedIN/${value.name}/${value.country}`} >
+                    {value.name.substr(0,value.name.indexOf(' '))}
+                </Link>
                 <div className="btnRmv" onClick={()=> this.removePlayer(value.name)}>Remove  </div>
             </div>
 
@@ -256,7 +281,9 @@ export default class Players extends Component {
 
             <div className="cards">
                 <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
-                <h6>{value.name.substr(0,value.name.indexOf(' '))}</h6>
+                <Link to={`/dream11/core/login/loggedIN/${value.name}/${value.country}`} >
+                    {value.name.substr(0,value.name.indexOf(' '))}
+                </Link>
                 <div className="btnRmv" onClick={()=> this.removePlayer(value.name)}>Remove  </div>
             </div>
 
@@ -269,7 +296,9 @@ export default class Players extends Component {
 
             <div className="cards">
                 <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
-                <h6>{value.name.substr(0,value.name.indexOf(' '))}</h6>
+                <Link to={`/dream11/core/login/loggedIN/${value.name}/${value.country}`} >
+                    {value.name.substr(0,value.name.indexOf(' '))}
+                </Link>
                 <div className="btnRmv" onClick={()=> this.removePlayer(value.name)}>Remove  </div>
             </div>
 
