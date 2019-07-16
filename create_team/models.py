@@ -15,10 +15,16 @@ class SeriesSquads(models.Model):
 
 
 class TeamCreated(models.Model):
+<<<<<<< HEAD
     Series_name = models.ForeignKey(SeriesList, on_delete=models.CASCADE)
     Match_no = models.IntegerField()
     User_id = models.ForeignKey(Users, on_delete=models.CASCADE)
     Match_day = models.DateField()
+=======
+    Match_no = models.IntegerField(),
+    User_id = models.ForeignKey(Users, on_delete=models.CASCADE),
+    Match_day = models.DateField(),
+>>>>>>> 9ec2b4f2dab9cfeffc0dea4525e221b81890b850
 
 
 class TeamPlayers(models.Model):

@@ -22,11 +22,11 @@ import  './css/profile.css';
 //import './css/table/vendor/jquery/jquery-3.2.1.min.js';
 class Profile extends Component {
      constructor(props){
-         super(props);
-         this.state = {
-      players:[],
-
-    };
+        super(props);
+        this.state = {
+            players:[],
+            
+        };
 
         this.loadPlayers = this.loadPlayers.bind(this);
      }
@@ -53,18 +53,16 @@ class Profile extends Component {
                   return player.name.toLowerCase().indexOf(this.props.match.params.name.toLowerCase()) !== -1 ;
 
                   });
-         console.log(player);
+        console.log("bal");
+        console.log(player);
       return (
           <div>
               <div className="container-fluid">
 
                   <div className="card pro_file" style={{ width:'400px'}}>
-
                           <div className="card-body">
-                              <h4>Hello</h4>
-                              <h4 className="card-title">{player.name}</h4>
-                              <p className="card-text">{player.role}</p>
-                                <p className="card-text"> {player.country}</p>
+                            <h4 className="card-title">{this.props.match.params.name}</h4>
+                            <p className="card-text"> {this.props.match.params.country}</p>
                           </div>
                   </div>
               </div>

@@ -18,7 +18,7 @@ from django.conf.urls import url, include
 from django.urls import path
 
 urlpatterns = [
-    url(r'^admin/$', admin.site.urls),
+    url(r'^admin/', admin.site.urls),
     url(r'^dream11/', include('user_registration.urls')),
     url(r'^dream11/core/', include('core.urls')),
     url(r'^dream11/api/', include('api.urls'))
