@@ -9,6 +9,7 @@ import './css/search.js';
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import Profile from "./profile";
 
+
 export default class Players extends Component {
   constructor(props) {
     super(props);
@@ -18,15 +19,20 @@ export default class Players extends Component {
       role:'',
       playerAdded:false, ///add this
       addedPlayers:[],
+      wicketkeeper: 0,
+      batsman:0,
+      bowler:0,
+      allrounder:0,
     };
     this.handleShow = this.handleShow.bind(this);
+    this.SubmitteamHandler = this.SubmitteamHandler.bind(this);
     this.loadPlayers = this.loadPlayers.bind(this);
     this.loadTeamPlayers = this.loadTeamPlayers.bind(this);
     this.allrounderHandler = this.allrounderHandler.bind(this);
     this.batsmanHandler = this.batsmanHandler.bind(this);
     this.bowlerHandler = this.bowlerHandler.bind(this);
     this.wicketkeeperHandler = this.wicketkeeperHandler.bind(this);
-    this.removePlayer = this.removePlayer.bind(this); 
+    this.removePlayer = this.removePlayer.bind(this);
   }
 
   /*componentDidMount() {
@@ -40,7 +46,7 @@ export default class Players extends Component {
   }*/
   componentWillMount(){
     this.loadPlayers();
-    this.loadTeamPlayers();
+    //this.loadTeamPlayers();
   }
 
   async loadPlayers()
@@ -49,9 +55,11 @@ export default class Players extends Component {
     const status = promise.status;
     if(status===200)
     {
-      const data = promise.data.data;
+      const data = promise.data;
+      console.log(data);
       this.setState({players:data});
     }
+    console.log(this.state.players);
   }
 
   async loadTeamPlayers()
@@ -111,7 +119,21 @@ export default class Players extends Component {
             break;
         }
     }
-    if(flag === 0 && this.state.addedPlayers.length < 11){
+    let wkt = this.setState.wicketkeeper;
+    let bats = this.setState.batsman;
+    let bowl = this.state.bowler;
+    let allr = this.state.allrounder;
+    if(flag === 0 && role.toLowerCase().indexOf("wicketkeeper") !== -1)
+        wkt = wkt+1;
+    else if(flag === 0 && role.toLowerCase().indexOf("batsman") !== -1)
+        bats = bats+1;
+    else if(flag === 0 && role.toLowerCase().indexOf("bowler") !== -1)
+        bowl = bowl+1;
+    else if(flag === 0 && role.toLowerCase().indexOf("allrounder") !== -1)
+        allr = allr+1;
+
+
+    if(flag === 0 && this.state.addedPlayers.length < 11  ){
         console.log("ffffffff")
         var person = {name:name, role:role, country:country, image:image};
         arr.push(person);
@@ -122,16 +144,26 @@ export default class Players extends Component {
         this.setState({
             addedPlayers : arr,
             players : taskList,
-            playerAdded : !this.state.playerAdded
+            playerAdded : !this.state.playerAdded,
+            allrounder: allr,
+            wicketkeeper: wkt,
+            batsman:bats,
+            bowler:bowl
         });
     }
     //console.log("arr" + arr);
-    
+
     //console.log("addedlist"+this.state.addedPlayers);
   }
 
-  SubmitteamHandler(){
-    console.log("team submitted");
+  async SubmitteamHandler(){
+      console.log(JSON.stringify(this.state.addedPlayers));
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'JWT fefege...'
+    }
+    var data = JSON.stringify(this.state.addedPlayers);
+    const response = await axios.post("http://localhost:8000/dream11/api/PlayerData/",data,headers);
   }
 
   removePlayer(index){
@@ -143,7 +175,7 @@ export default class Players extends Component {
             return player.name === index;
         })
         let arr = [...this.state.players];
-        
+
         arr.push(taskList1[0]);
         this.setState({
             addedPlayers : taskList,
@@ -245,7 +277,7 @@ export default class Players extends Component {
         )
     }
 
-    let wicketkeeperGeseGa =addedWkt.map(function (value,index) 
+    let wicketkeeperGeseGa =addedWkt.map(function (value,index)
     {
         return  <div class="column">
 
@@ -260,7 +292,7 @@ export default class Players extends Component {
         </div>
     }.bind(this));
 
-    let batsmanGeseGa =addedBatsman.map(function (value,index) 
+    let batsmanGeseGa =addedBatsman.map(function (value,index)
     {
         return  <div class="column">
 
@@ -275,7 +307,7 @@ export default class Players extends Component {
         </div>
     }.bind(this));
 
-    let allrounderGeseGa =addedAllrounder.map(function (value,index) 
+    let allrounderGeseGa =addedAllrounder.map(function (value,index)
     {
         return  <div class="column">
 
@@ -290,7 +322,7 @@ export default class Players extends Component {
         </div>
     }.bind(this));
 
-    let bowlerGeseGa =addedBowler.map(function (value,index) 
+    let bowlerGeseGa =addedBowler.map(function (value,index)
     {
         return  <div class="column">
 
@@ -306,7 +338,7 @@ export default class Players extends Component {
     }.bind(this));
 
     //console.log(searchPlayer);
-    
+
     return(
 
     <div>
@@ -394,7 +426,7 @@ export default class Players extends Component {
         </div>
 
     </div>
-    
+
     )
   }
 }
