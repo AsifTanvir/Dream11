@@ -5,8 +5,6 @@ app_name = "api"
 
 urlpatterns = [
     url(r'^PlayerData/$', views.getPlayers, name="players"),
-    url(r'^PostPlayerData/$', views.postPlayers, name="postplayers"),
-    url(r'^UserData/$', views.getUsers, name="users"),
     url(r'^TeamCreatedData/$', views.getTeamCreated, name="team_created"),
     url(r'^TeamPlayersData/$', views.getTeamPlayers, name="team_players"),
     url(r'^SeriesListData/$', views.getSeriesList, name="series_list"),
