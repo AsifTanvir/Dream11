@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="46644447-24b5-4e5c-9154-8b6d6ee3d186" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dream11/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dream11/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dream11_frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dream11_frontend/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dream11/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dream11/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dream11_frontend/src/Component/Players/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/dream11_frontend/src/Component/Players/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_registration/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/user_registration/urls.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,6 +30,7 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="css" value="13" />
+          <entry key="gitignore" value="4" />
           <entry key="html" value="12" />
           <entry key="jpg" value="1" />
           <entry key="js" value="39" />
@@ -48,6 +45,7 @@
           <entry key="Image" value="1" />
           <entry key="JSON" value="3" />
           <entry key="JavaScript" value="39" />
+          <entry key="PLAIN_TEXT" value="4" />
           <entry key="Python" value="45" />
         </counts>
       </usages-collector>
@@ -86,11 +84,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dream11/__init__.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
@@ -98,39 +91,6 @@
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dream11/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
-              <folding>
-                <element signature="e#631#663#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="27" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/create_team/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="8" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -168,8 +128,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dream11_frontend/src/Component/Players/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="431" column="1" selection-start-line="431" selection-start-column="1" selection-end-line="431" selection-end-column="1" />
+            <state relative-caret-position="-448">
+              <caret line="243" column="14" lean-forward="true" selection-start-line="243" selection-start-column="14" selection-end-line="243" selection-end-column="14" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -291,6 +251,12 @@
             <path>
               <item name="dream11" type="b2602c69:ProjectViewProjectNode" />
               <item name="dream11" type="462c0819:PsiDirectoryNode" />
+              <item name="create_team" type="462c0819:PsiDirectoryNode" />
+              <item name="migrations" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dream11" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dream11" type="462c0819:PsiDirectoryNode" />
               <item name="dream11" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -348,19 +314,19 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\rakibul\Desktop\dream11\dream11_frontend\src\Component\Players\css\profile\images" />
-      <recent name="C:\Users\rakibul\Desktop\dream11\dream11_frontend\src\Component\Players\css" />
-      <recent name="C:\Users\rakibul\Desktop\dream11\dream11_frontend\src\Component\Players\css\table\css" />
-      <recent name="C:\Users\rakibul\Desktop\dream11\dream11_frontend\src\Component\Players" />
-      <recent name="C:\Users\rakibul\Desktop\dream11\api" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\rakibul\Desktop\dream11\dream11_frontend\src\Component\Players\css" />
       <recent name="C:\Users\rakibul\Desktop\dream11\dream11_frontend" />
       <recent name="C:\Users\rakibul\Desktop\dream11\user_registration\static\images" />
       <recent name="C:\Users\rakibul\Desktop\dream11\static\images" />
       <recent name="C:\Users\rakibul\Desktop\dream11\static" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\rakibul\Desktop\dream11\api" />
+      <recent name="C:\Users\rakibul\Desktop\dream11\core" />
+      <recent name="C:\Users\rakibul\Desktop\dream11\create_team" />
+      <recent name="C:\Users\rakibul\Desktop\dream11\dream11" />
+      <recent name="C:\Users\rakibul\Desktop\dream11\dream11_frontend\src\Component\Players\css\profile\images" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -484,22 +450,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/dream11_frontend/src/Component/Childcomponent.js" />
-    <entry file="file://$PROJECT_DIR$/dream11_frontend/src/Component/dream11/index.js" />
-    <entry file="file://$PROJECT_DIR$/user_registration/static/css/playerListCard.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="34" column="21" selection-start-line="34" selection-start-column="21" selection-end-line="34" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user_registration/static/js/jquery-3.4.1.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="52" selection-start-line="1" selection-start-column="52" selection-end-line="1" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/images/58701364_1322434591237863_8624006004918452224_n.jpg" />
     <entry file="file://$PROJECT_DIR$/user_registration/static/css/search.css">
       <provider selected="true" editor-type-id="text-editor">
@@ -766,10 +716,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/create_team/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dream11/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/dream11_frontend/src/Component/Players/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="431" column="1" selection-start-line="431" selection-start-column="1" selection-end-line="431" selection-end-column="1" />
+        <state relative-caret-position="-448">
+          <caret line="243" column="14" lean-forward="true" selection-start-line="243" selection-start-column="14" selection-end-line="243" selection-end-column="14" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>

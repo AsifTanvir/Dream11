@@ -160,6 +160,7 @@ export default class Players extends Component {
       console.log(JSON.stringify(this.state.addedPlayers));
       var headers = {
         'Content-Type': 'application/json',
+
         'Authorization': 'JWT fefege...'
     }
     var data = JSON.stringify(this.state.addedPlayers);
