@@ -8,6 +8,15 @@ class PlayersSerializer(serializers.ModelSerializer):
         model = Players
         fields = '__all__'
 
+    def create(self, validated_data):
+        name = validated_data.get('name')
+        role = validated_data.get('role')
+        country = validated_data.get('country')
+        image = validated_data.get('image')
+        player = Players(name=name, role=role,country=country,image=image)
+        #student.set_password(validated_data.get('password')
+        return player
+
 
 class UsersSerializer(serializers.ModelSerializer):
     class Meta:

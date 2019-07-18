@@ -23,6 +23,7 @@ body {
 .coloredDiv {
     background-color: #2F4F4F;
     text-align: center;
+    height: 40px;
 }
 
 .coloredDiv h3 {
@@ -31,9 +32,9 @@ body {
 }
 
 .column {
-    margin: 5px;
+    margin-top: 5px;
     float: left;
-    width: 100px;
+    width: 70px;
     margin-right: 25px;
     transition: all .4s cubic-bezier(0.175, 0.885, 0, 1);
     border-radius: 12px;
@@ -53,6 +54,7 @@ body {
 .card_image {
     width: 100%;
     max-height: 120px;
+    position: relative;
 }
 
 .cards:after {
@@ -133,10 +135,14 @@ body {
 }
 
 .btnRmv {
-    margin-top: 10px;
+/*margin-top: 10px;
     background-color: rgba(197, 25, 25, 0.986);
     text-align: center;
-    cursor: pointer;
+    cursor: pointer;*/
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    cursor: grab;
 }
 
 .button5 {
@@ -222,6 +228,7 @@ border-bottom-right-radius: 12px;
     letter-spacing: 2px;
     font-weight: 500;
     color: #868686;
+
 }
 
 .card__title {
@@ -249,7 +256,8 @@ border-bottom-right-radius: 12px;
 */
 
 .team {
-    margin-top: 50px;
+    margin-top: 20px;
+
 }
 
 .create_team {

@@ -4,10 +4,14 @@ from rest_framework import status
 from rest_framework.decorators import api_view,authentication_classes,permission_classes
 from .serializers import PlayersSerializer, UsersSerializer, TeamCreatedSerializer, TeamPlayersSerializer, SeriesSquadsSerializer, SeriesListSerializer
 from create_team.models import SeriesList,SeriesSquads,TeamCreated,TeamPlayers
+from rest_framework.decorators import parser_classes
+from rest_framework.parsers import JSONParser
+import json
 
 @api_view(["GET","POST"])
 @authentication_classes([])
 @permission_classes([])
+@parser_classes((JSONParser,))
 def getPlayers(request):
     if request.method == 'GET':
         playerlist = Players.objects.all()
@@ -16,15 +20,14 @@ def getPlayers(request):
 
     elif request.method == 'POST':
         serializer = PlayersSerializer(data=request.data)
-        #if serializer.is_valid():
-        pp = TeamCreated.objects.get(pk=1);
-        pp1 = Players.objects.get(pk=400);
-        print(serializer)
-        player = TeamPlayers(Team_created=pp,Players=serializer)
+        xx = serializer.create(validated_data=request.data);
+        print(xx.name)
+        print(xx.role)
+        pp = TeamCreated.objects.get(pk=1)
+        player = Players.objects.get(name=xx.name, role=xx.role, country=xx.country, image=xx.image)
+        player = TeamPlayers(Team_created=pp, Players=player)
         player.save()
-        #print(request.data.get(name))
-        return Response(request.data, status=status.HTTP_200_OK)
-        #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_200_OK)
 
 
 @api_view(["GET"])

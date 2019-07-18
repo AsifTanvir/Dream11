@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Route path="/dream11/core/login/loggedIN/"  exact component={Players} />
-        <Route path="/dream11/core/login/loggedIN/:name/:country"  component={Profile} />
+        <Route path="/dream11/core/login/loggedIN/:name/:country/"  component={Profile} />
       </BrowserRouter>
     );
   }
