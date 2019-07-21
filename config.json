@@ -1,0 +1,52 @@
+{
+    "points": {
+        "batting": {
+            "run": 0.5,
+            "boundary": 0.5,
+            "six": 1,
+            "half_century": 2,
+            "century": 4,
+            "duck": -3
+        },
+        "bowling": {
+            "wicket": 12,
+            "4_wicket": 2,
+            "5_wicket": 4,
+            "maiden": 2
+        },
+        "fielding": {
+            "catch": 4,
+            "stumping_runout": 6
+        },
+        "bonus": {
+            "captain": 2,
+            "vice_captain": 1.5,
+            "in_starting_eleven": 2
+        },
+        "economy": {
+            "min_overs": 5,
+            "below_2.5": 3,
+            "between_2.5_4": 2,
+            "between_4_5": 1,
+            "between_7_8": -1,
+            "between_8_9": -2,
+            "above_9": -3
+        },
+        "strike_rate": {
+            "min_runs": 20,
+            "below_50": -2,
+            "above_150": 2
+        }
+    },
+    "team": {
+        "max_player_from_one_team": 7,
+        "max_bwl": 5,
+        "min_bwl": 2,
+        "max_bat": 5,
+        "min_bat": 2,
+        "max_wk": 2,
+        "min_wk": 1,
+        "max_ar": 3,
+        "min_ar": 1
+    }
+}
