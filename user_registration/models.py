@@ -14,6 +14,7 @@ class Players(models.Model):
     country = models.CharField(max_length=250)
     image = models.CharField(max_length=500)
     role = models.CharField(max_length=30)
+    credit = models.FloatField(default=None)
 
     def __str__(self):
-        return self.name + ' - ' + self.role
+        return self.name + ' - ' + self.role + ' - ' + str(self.credit)

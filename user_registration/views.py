@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .crawler import crawling,insert_player_info_db
-from .data_insert  import insert_crawled_data
+from .data_insert  import insert_crawled_data, insert_credit, insert_non_ranked_credit, insert_all_players
 from django.shortcuts import render
 from .models import Users,Players
 import csv
@@ -73,7 +73,10 @@ def register(request):
 def Admin(request):
     # crawling()
     Players.objects.all().delete()
-    insert_crawled_data()
+    # insert_crawled_data()
+    # insert_credit()
+    # insert_non_ranked_credit()
+    insert_all_players()
     return render(request, 'home/admin.html',{})
 
 # Create your views here.
