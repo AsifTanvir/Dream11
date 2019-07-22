@@ -17,7 +17,7 @@ export default class Players extends Component {
       players:[],
       search:'',
       role:'',
-      playerAdded:false, ///add this
+      isPlayerAdded:[],
       addedPlayers:[],
       wicketkeeper: 0,
       batsman: 0,
@@ -35,15 +35,6 @@ export default class Players extends Component {
     this.removePlayer = this.removePlayer.bind(this);
   }
 
-  /*componentDidMount() {
-    fetch("http://localhost:8000/dream11/login/loggedIN/api")
-      .then(res => res.json())
-      .then(json => {
-          this.setState({
-            players : json,
-          })
-      });
-  }*/
   componentWillMount(){
     this.loadPlayers();
     //this.loadTeamPlayers();
@@ -57,7 +48,10 @@ export default class Players extends Component {
     {
       const data = promise.data;
       console.log(data);
-      this.setState({players:data});
+      this.setState({
+          players:data,
+          isPlayerAdded: new Array(data.length).fill(false) 
+        });
     }
     console.log(this.state.players);
   }
