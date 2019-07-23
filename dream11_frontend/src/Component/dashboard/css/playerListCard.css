@@ -102,6 +102,13 @@ body {
   background-color: #f1f1f1;
 }*/
 
+h2 {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    color: #0a4657;
+    text-align: center;
+}
+
 .img-wraps {
     position: relative;
     display: inline-block;
@@ -291,11 +298,16 @@ a {
     background-color: #2F4F4F;
 }
 
-.profile {
+.profilecontain {
+    margin-top: 250px;
+}
+
+.profilecontain .profile {
     width: 700px;
     height: 100px;
     position: relative;
     left: 50%;
+    margin-top: 30px;
     margin-bottom: 10px;
     transform: translate(-50%, -50%);
     border-radius: 5px;
@@ -314,12 +326,12 @@ a {
     }
 }
 
-.profile .photo,
-.profile .content {
+.profilecontain.profile .photo,
+.profilecontain.profile .content {
     box-sizing: border-box;
 }
 
-.profile .photo {
+.profilecontain.profile .photo {
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -341,7 +353,7 @@ a {
     width: 100%;
 }
 
-.profile .content {
+.profilecontain .profile .content {
     padding: 10px;
     overflow: hidden;
     position: absolute;
@@ -351,7 +363,7 @@ a {
     left: 0;
 }
 
-.profile .content::before {
+.profilecontain .profile .content::before {
     content: "";
     position: absolute;
     width: 230px;
@@ -363,20 +375,21 @@ a {
     transform: rotate(-8deg);
 }
 
-.profile .content .text {
+.profilecontain .profile .content .text {
+    text-align: center;
     margin-top: 20px;
     margin-left: 50px;
 }
 
-.profile .content .text h3,
-.profile .content .text h6 {
+.profilecontain .profile .content .text h3,
+.profilecontain .profile .content .text h6 {
     font-weight: normal;
     margin: 3px 0;
     letter-spacing: 0.5px;
     white-space: nowrap;
 }
 
-.profile .content .btn {
+.profilecontain .profile .content .btn {
     background-color: #2F4F4F;
     width: 50px;
     height: 50px;
@@ -402,11 +415,11 @@ a {
     }
 }
 
-.profile .content .btn:hover {
+.profilecontain .profile .content .btn:hover {
     box-shadow: 0 0 0 5px rgba(170, 187, 204, 0.5);
 }
 
-.profile .content .btn span {
+.profilecontain .profile .content .btn span {
     width: 60%;
     height: 2px;
     position: absolute;
@@ -417,32 +430,42 @@ a {
     animation: to-hamburger 0.3s forwards ease-in-out;
 }
 
-.profile .content .btn span::before,
-.profile .content .btn span::after {
+.profilecontain .profile .content .btn span::before {
     content: "";
-    width: 100%;
+    width: 40%;
     height: 2px;
     position: absolute;
     background-color: #E6E6FA;
     transition-duration: 0.3s;
-    transform: rotate(90deg);
+    transform: rotate(45deg);
     right: 0;
 }
 
-.profile .content .btn span::before {
+.profilecontain .profile .content .btn span::after {
+    content: "";
+    width: 40%;
+    height: 2px;
+    position: absolute;
+    background-color: #E6E6FA;
+    transition-duration: 0.3s;
+    transform: rotate(-45deg);
+    right: 0;
+}
+
+.profilecontain .profile .content .btn span::before {
     margin-top: -5px;
 }
 
-.profile .content .btn span::after {
+.profilecontain .profile .content .btn span::after {
     margin-top: 5px;
 }
 
-.profile .content .btn.active span {
+.profilecontain .profile .content .btn.active span {
     animation: to-arrow 0.3s forwards ease-in-out;
 }
 
-.profile .content .btn.active span::before,
-.profile .content .btn.active span::after {
+.profilecontain .profile .content .btn.active span::before,
+.profilecontain .profile .content .btn.active span::after {
     width: 60%;
     right: -1px;
 }

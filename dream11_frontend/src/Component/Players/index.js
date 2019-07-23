@@ -17,12 +17,13 @@ export default class Players extends Component {
       players:[],
       search:'',
       role:'',
-      isPlayerAdded:[],
       addedPlayers:[],
       wicketkeeper: 0,
       batsman: 0,
       bowler: 0,
       allrounder: 0,
+      searchPlayer1:[],
+      availableBalance:100,
     };
     this.handleShow = this.handleShow.bind(this);
     this.SubmitteamHandler = this.SubmitteamHandler.bind(this);
@@ -33,6 +34,8 @@ export default class Players extends Component {
     this.bowlerHandler = this.bowlerHandler.bind(this);
     this.wicketkeeperHandler = this.wicketkeeperHandler.bind(this);
     this.removePlayer = this.removePlayer.bind(this);
+    this.handleCheck = this.handleCheck.bind(this);
+    this.seriesPlayers = this.seriesPlayers.bind(this);
   }
 
   componentWillMount(){
@@ -43,17 +46,16 @@ export default class Players extends Component {
   async loadPlayers()
   {
     const promise = await axios.get("http://localhost:8000/dream11/api/PlayerData/");
+
     const status = promise.status;
     if(status===200)
     {
       const data = promise.data;
       console.log(data);
       this.setState({
-          players:data,
-          isPlayerAdded: new Array(data.length).fill(false) 
+          players:data
         });
     }
-    console.log(this.state.players);
   }
 
   async loadTeamPlayers()
@@ -63,6 +65,7 @@ export default class Players extends Component {
     if(status===200)
     {
       const data = promise.data.data;
+      console.log(data);
       this.setState({addedPlayers:data});
     }
   }
@@ -73,6 +76,13 @@ export default class Players extends Component {
       //console.log(this.state.search);
   }
 
+  seriesPlayers(teamA,teamB){
+    let teamPlayers = this.state.players.filter((player) => {
+        return player.country === teamA || player.country === teamB;
+    })
+    console.log(teamPlayers);
+    this.setState({players : teamPlayers});
+  }
 
   batsmanHandler(){
     this.setState({
@@ -93,7 +103,7 @@ export default class Players extends Component {
     this.setState({
       role: "wicketkeeper"})
   }
-  handleShow(name,role,country,image){
+  handleShow(name,role,country,image,credit){
     //console.log("value" + name +role +country+image);
     let arr = this.state.addedPlayers.slice();
     let playerClicked = this.state.players.filter( (player) => {
@@ -126,32 +136,26 @@ export default class Players extends Component {
         bowl = bowl+1;
     else if(flag === 0 && role.toLowerCase().indexOf("allrounder") !== -1)
         allr = allr+1;
-    console.log(wkt);
-    console.log(bats);
-    console.log(bowl);
-    console.log(allr);
+    
 
-    if(flag === 0 && this.state.addedPlayers.length < 11 && wkt < 3 && bats < 5 && bowl < 5 && allr < 3 ){
+    let balance = this.state.availableBalance;
+    balance = balance - credit;
+
+    if(flag === 0 && this.state.addedPlayers.length < 11 && wkt < 3 && bats < 5 && bowl < 5 && allr < 3 && balance>0){
         console.log("ffffffff")
-        var person = {name:name, role:role, country:country, image:image};
+        var person = {name:name, role:role, country:country, image:image , credit:credit};
         arr.push(person);
-        taskList = this.state.players.filter((player) => {
-            return player.name !== name;
-        })
 
         this.setState({
             addedPlayers : arr,
-            players : taskList,
-            playerAdded : !this.state.playerAdded,
             allrounder: allr,
             wicketkeeper: wkt,
             batsman:bats,
-            bowler:bowl
+            bowler:bowl,
+            availableBalance:balance,
         });
-    }
-    //console.log("arr" + arr);
 
-    //console.log("addedlist"+this.state.addedPlayers);
+    }
   }
 
   async SubmitteamHandler(){
@@ -177,24 +181,43 @@ export default class Players extends Component {
   removePlayer(index){
     if(window.confirm("Are you sure you want to remove this player?")){
         let taskList = this.state.addedPlayers.filter((player) => {
-            return player.name !== index;
+            return player.name !== index.name;
         })
-        let taskList1 = this.state.addedPlayers.filter((player) => {
-            return player.name === index;
-        })
-        let arr = [...this.state.players];
+        let wkt = this.state.wicketkeeper;
+        let bats = this.state.batsman;
+        let bowl = this.state.bowler;
+        let allr = this.state.allrounder;
+        if(index.role.toLowerCase().indexOf("wicketkeeper") !== -1)
+            wkt = wkt-1;
+        else if(index.role.toLowerCase().indexOf("batsman") !== -1)
+            bats = bats-1;
+        else if(index.role.toLowerCase().indexOf("bowler") !== -1)
+            bowl = bowl-1;
+        else if(index.role.toLowerCase().indexOf("allrounder") !== -1)
+            allr = allr-1;
 
-        arr.push(taskList1[0]);
-        this.setState({
+        let balance = this.state.availableBalance;
+        balance = balance + index.credit;
+        console.log(index);
+
+        this.setState( {
             addedPlayers : taskList,
-            players : arr
+            allrounder: allr,
+            wicketkeeper: wkt,
+            batsman:bats,
+            bowler:bowl,
+            availableBalance:balance,
         })
     }
   }
 
+  handleCheck(val) {
+    return this.state.addedPlayers.some(item => val.name === item.name);
+  }
+
   render() {
-
-
+    console.log(this.props.match.params.Home_team);
+    console.log(this.props.match.params.Away_team);
     //console.log(this.state.role);
     let searchPlayer;
     if( this.state.role.indexOf("batsman") !== -1){
@@ -236,20 +259,38 @@ export default class Players extends Component {
     }
     let tagList = searchPlayer.map(function(value,index)
     {
-        return <div className="profile">
-        <div className="photo"><img src={value.image} /></div>
-        <div className="content">
-            <div className="text">
-                <Link to={`/dream11/core/login/loggedIN/${value.name}/${value.country}/`} >{value.name}</Link>
-                <h6><span className="card__category">{value.country}</span></h6>
+        if(value.country.toLowerCase() === this.props.match.params.Home_team.toLowerCase() || value.country.toLowerCase() === this.props.match.params.Away_team.toLowerCase()){
+        if(!this.handleCheck(value) ){
+            return <div className="profile">
+            <div className="photo"><img src={value.image} /></div>
+            <div className="content">
+                <div className="text">
+                    <Link to={`/dream11/core/login/loggedIN/players/profile/${value.name}/${value.country}`} >{value.name}</Link>
+                    <h6><span className="card__category">Credit:{value.credit}</span></h6>
+                    <h6><span className="card__category">{value.country}</span></h6>
+                </div>
+                <div className="btn" onClick={() => this.handleShow(value.name,value.role,value.country,value.image,value.credit)}>
+                <span></span>
+                </div>
             </div>
-            <div className="btn" onClick={() => this.handleShow(value.name,value.role,value.country,value.image)}>
-            <span>
-
-            </span>
             </div>
-        </div>
-    </div>
+        }
+        else{
+            return <div className="profile">
+            <div className="photo"><img src={value.image} /></div>
+            <div className="content">
+                <div className="text">
+                    <Link to={`/dream11/core/login/loggedIN/players/profile/${value.name}/${value.country}`} >{value.name}</Link>
+                    <h6><span className="card__category">{value.credit}</span></h6>
+                    <h6><span className="card__category">{value.country}</span></h6>
+                </div>
+                <div className="btn" onClick={() => this.handleShow(value.name,value.role,value.country,value.image,value.credit)}>
+                <div className="check"></div>
+                </div>
+            </div>
+            </div>
+        }
+    }
     }.bind(this));
     let addedBatsman;
     let addedBowler;
@@ -290,8 +331,8 @@ export default class Players extends Component {
         return  <div class="column">
 
             <div className="cards">
-                <div className="btnRmv" onClick={()=> this.removePlayer(value.name)}><span>&times;</span>  </div>
-                <Link to={`/dream11/core/login/loggedIN/${value.name}/${value.country}/`} >
+                <div className="btnRmv" onClick={()=> this.removePlayer(value)}><span>&times;</span>  </div>
+                <Link to={`/dream11/core/login/loggedIN/players/profile/${value.name}/${value.country}/`} >
                     <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
                 </Link>
             </div>
@@ -305,8 +346,8 @@ export default class Players extends Component {
 
             <div className="cards">
 
-                <div className="btnRmv" onClick={()=> this.removePlayer(value.name)}><span>&times;</span>  </div>
-                <Link to={`/dream11/core/login/loggedIN/${value.name}/${value.country}/`} >
+                <div className="btnRmv" onClick={()=> this.removePlayer(value)}><span>&times;</span>  </div>
+                <Link to={`/dream11/core/login/loggedIN/players/profile/${value.name}/${value.country}/`} >
                     <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
                 </Link>
             </div>
@@ -320,8 +361,8 @@ export default class Players extends Component {
 
             <div className="cards">
 
-                <div className="btnRmv" onClick={()=> this.removePlayer(value.name)}><span>&times;</span>  </div>
-                <Link to={`/dream11/core/login/loggedIN/${value.name}/${value.country}/`} >
+                <div className="btnRmv" onClick={()=> this.removePlayer(value)}><span>&times;</span>  </div>
+                <Link to={`/dream11/core/login/loggedIN/players/profile/${value.name}/${value.country}/`} >
                     <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
                 </Link>
             </div>
@@ -334,8 +375,8 @@ export default class Players extends Component {
         return  <div class="column">
 
             <div className="cards">
-                <div className="btnRmv" onClick={()=> this.removePlayer(value.name)}><span>&times;</span>  </div>
-                <Link to={`/dream11/core/login/loggedIN/${value.name}/${value.country}/`} >
+                <div className="btnRmv" onClick={()=> this.removePlayer(value)}><span>&times;</span>  </div>
+                <Link to={`/dream11/core/login/loggedIN/players/profile/${value.name}/${value.country}/`} >
                     <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
                 </Link>
 
@@ -350,6 +391,7 @@ export default class Players extends Component {
 
 
     <div>
+        <h3>Balance:{this.state.availableBalance}</h3>
         <div className="total_team">
         <div className="container team">
             <div className="coloredDiv">
@@ -390,7 +432,9 @@ export default class Players extends Component {
         </div>
         <div className="container-fluid">
             <div className="buttfix">
+            <Link to={`/dream11/core/login/loggedIN/MyTeam/`} >
                 <button type="button" className="btn button5" onClick={this.SubmitteamHandler}>Submit Team</button>
+            </Link>
             </div>
 
         </div>

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from user_registration.models import Players, Users
-from create_team.models import SeriesList,SeriesSquads,TeamCreated,TeamPlayers
+from create_team.models import SeriesList,SeriesSquads,TeamCreated,TeamPlayers,Matches,UserTeamPoints
 
 
 class PlayersSerializer(serializers.ModelSerializer):
@@ -45,4 +45,15 @@ class TeamCreatedSerializer(serializers.ModelSerializer):
 class TeamPlayersSerializer(serializers.ModelSerializer):
     class Meta:
         model = TeamPlayers
+        fields = '__all__'
+
+class MatchesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Matches
+        fields = '__all__'
+
+
+class UserTeamPointsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserTeamPoints
         fields = '__all__'

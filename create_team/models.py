@@ -11,7 +11,7 @@ class SeriesList(models.Model):
 
 class SeriesSquads(models.Model):
     Series_name = models.ForeignKey(SeriesList, on_delete=models.CASCADE)
-    Squad_player = models.TextField()
+    Squad_player = models.ForeignKey(Players, on_delete=models.CASCADE)
 
 class TeamCreated(models.Model):
     Series_name = models.ForeignKey(SeriesList, on_delete=models.CASCADE)

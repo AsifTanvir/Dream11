@@ -1,0 +1,190 @@
+import React, { Component } from 'react';
+import {Route} from "./index";
+
+import axios from "axios";
+import './css/playerListCard.css';
+import './css/search.css';
+import './css/playerListCard.js';
+import './css/search.js';
+
+class MyTeam extends Component {
+     constructor(props){
+        super(props);
+        this.state = {
+            players:[],
+            addedPlayers:[],
+            
+        };
+
+        this.loadPlayers = this.loadPlayers.bind(this);
+        this.loadTeamPlayers = this.loadTeamPlayers.bind(this);
+     }
+
+    componentWillMount(){
+        this.loadPlayers();
+        this.loadTeamPlayers();
+    }
+
+    async loadPlayers()
+    {
+        const promise = await axios.get("http://localhost:8000/dream11/api/PlayerData/");
+
+        const status = promise.status;
+        if(status===200)
+        {
+        const data = promise.data;
+        console.log(data);
+        this.setState({
+            players:data
+            });
+        }
+    }
+
+    async loadTeamPlayers()
+    {
+        const promise = await axios.get("http://localhost:8000/dream11/api/TeamPlayersData/");
+        const status = promise.status;
+        if(status===200)
+        {
+        const data = promise.data.data;
+        this.setState({addedPlayers:data});
+        }
+    }
+
+    render() {
+        console.log(this.state.addedPlayers);
+        let myPlayers = this.state.players.filter(f => !this.state.addedPlayers.Players_id !== f.id);
+        console.log(myPlayers);
+        let addedBatsman;
+        let addedBowler;
+        let addedWkt;
+        let addedAllrounder;
+        //console.log(this.state.addedPlayers);
+        if (myPlayers !== null) {
+            addedBatsman = myPlayers.filter(
+                (player) => {
+                    return player.role.toLowerCase().indexOf('batsman') !== -1;
+                }
+            )
+        }
+        if (myPlayers !== null) {
+            addedBowler = myPlayers.filter(
+                (player) => {
+                    return player.role.toLowerCase().indexOf('bowler') !== -1;
+                }
+            )
+        }
+        if (myPlayers !== null) {
+            addedWkt = myPlayers.filter(
+                (player) => {
+                    return player.role.toLowerCase().indexOf('wicketkeeper') !== -1;
+                }
+            )
+        }
+        if (myPlayers !== null) {
+            addedAllrounder = myPlayers.filter(
+                (player) => {
+                    return player.role.toLowerCase().indexOf('allrounder') !== -1;
+                }
+            )
+        }
+    
+        let wicketkeeperGeseGa =addedWkt.map(function (value,index)
+        {
+            return  <div class="column">
+    
+                <div className="cards">
+                    <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
+                    <h6>{value.name}</h6>
+                </div>
+    
+            </div>
+        }.bind(this));
+    
+        let batsmanGeseGa =addedBatsman.map(function (value,index)
+        {
+            return  <div class="column">
+    
+                <div className="cards">
+                    <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
+                    <h6>{value.name}</h6>
+                </div>
+    
+            </div>
+        }.bind(this));
+    
+        let allrounderGeseGa =addedAllrounder.map(function (value,index)
+        {
+            return  <div class="column">
+    
+                <div className="cards">
+                    <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
+                    <h6>{value.name}</h6>
+                </div>
+    
+            </div>
+        }.bind(this));
+    
+        let bowlerGeseGa =addedBowler.map(function (value,index)
+        {
+            return  <div class="column">
+    
+                <div className="cards">
+                    <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
+                    <h6>{value.name}</h6>
+                </div>
+    
+            </div>
+        }.bind(this));
+    
+      return (
+        <div>
+        <div className="total_team">
+        <div className="container team">
+            <div className="coloredDiv">
+            <h3 > <span className="label label-success create_team card__category">Wicketkeeper</span></h3>
+            </div>
+            <div className="team_space rows">
+                { wicketkeeperGeseGa}
+            </div>
+        </div>
+        <div className="container team">
+            <div className="coloredDiv">
+                <h3> <span className="label label-success create_team card__category">Batsman</span></h3>
+            </div>
+
+            <div className="team_space rows">
+                { batsmanGeseGa }
+            </div>
+
+        </div>
+        <div className="container team">
+            <div className="coloredDiv">
+                <h3> <span className="label label-success create_team card__category">All rounder</span></h3>
+            </div>
+
+            <div className="team_space rows">
+                {allrounderGeseGa}
+            </div>
+        </div>
+        <div className="container team">
+            <div className="coloredDiv">
+                <h3> <span className="label label-success create_team card__category">Bowler</span></h3>
+            </div>
+
+            <div className="team_space rows">
+                {bowlerGeseGa}
+            </div>
+        </div>
+        </div>
+        <div className="container-fluid">
+            <div className="buttfix">
+                <button type="button" className="btn button5" onClick={this.SubmitteamHandler}>Submit Team</button>
+            </div>
+
+        </div> 
+        </div>
+      );
+    }
+  }
+export default  MyTeam;
