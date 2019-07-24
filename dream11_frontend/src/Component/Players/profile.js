@@ -3,23 +3,7 @@ import {Route} from "./index";
 //import 'jquery';
 import axios from "axios";
 import  './css/profile.css';
-//import './css/table/images/icons/favicon.ico';
-//import './css/table/vendor/bootstrap/css/bootstrap.min.css';
-//import './css/table/fonts/font-awesome-4.7.0/css/font-awesome.min.css';
-//import './css/table/vendor/animate/animate.css';
-//import './css/table/vendor/select2/select2.min.css';
-//import './css/table/vendor/perfect-scrollbar/perfect-scrollbar.css';
-//import './css/table/css/util.css';
-//import './css/table/css/main.css';
-//import './css/table/css/jquery-3.4.1.min.js';
-//import './css/profile/js/bootstrap.min.js';
-//import './css/profile/css/profile.css';
-//import './css/profile/css/bootstrap.min.css';
-//import './css/table/js/main.js';
-//import  './css/table/vendor/select2/select2.min.js';
-//import './css/table/vendor/bootstrap/js/bootstrap.min.js';
-//import './css/table/vendor/bootstrap/js/popper.js';
-//import './css/table/vendor/jquery/jquery-3.2.1.min.js';
+
 class Profile extends Component {
      constructor(props){
         super(props);

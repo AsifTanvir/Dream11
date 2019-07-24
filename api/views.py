@@ -2,8 +2,8 @@ from user_registration.models import Players, Users
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view,authentication_classes,permission_classes
-from .serializers import PlayersSerializer, UsersSerializer, TeamCreatedSerializer, TeamPlayersSerializer, SeriesSquadsSerializer, SeriesListSerializer, PlayerPointsSerializer
-from create_team.models import SeriesList,SeriesSquads,TeamCreated,TeamPlayers, PlayerPoints
+from .serializers import PlayersSerializer, UsersSerializer, TeamCreatedSerializer, TeamPlayersSerializer, SeriesSquadsSerializer, SeriesListSerializer,MatchesSerializer,UserTeamPointsSerializer
+from create_team.models import SeriesList,SeriesSquads,TeamCreated,TeamPlayers,Matches,UserTeamPoints
 from rest_framework.decorators import parser_classes
 from rest_framework.parsers import JSONParser
 import json
@@ -20,40 +20,43 @@ def getPlayers(request):
 
     elif request.method == 'POST':
         serializer = PlayersSerializer(data=request.data)
-        xx = serializer.create(validated_data=request.data);
+        xx = serializer.create(validated_data=request.data)
         print(xx.name)
         print(xx.role)
-        pp = TeamCreated.objects.get(pk=1)
+        pp = TeamCreated.objects.get(pk=2)
         player = Players.objects.get(name=xx.name, role=xx.role, country=xx.country, image=xx.image)
         player = TeamPlayers(Team_created=pp, Players=player)
         player.save()
         return Response(status=status.HTTP_200_OK)
 
 
-@api_view(["GET"])
+@api_view(["GET","POST"])
+@authentication_classes([])
+@permission_classes([])
+@parser_classes((JSONParser,))
 def getTeamCreated(request):
-    userlist = TeamCreated.objects.all()
-    serializers = UsersSerializer(TeamCreatedSerializer, many=True)
-    return Response(status=status.HTTP_200_OK, data={"data": serializers.data})
+    if request.method == 'GET':
+        userlist = TeamCreated.objects.all()
+        serializers = TeamCreatedSerializer(userlist, many=True)
+        return Response(status=status.HTTP_200_OK, data={"data": serializers.data})
 
-@api_view(["GET"])
-def getPlayerPoints(request):
-    playerlist = PlayerPoints.objects.all()
-    serializers = PlayerPointsSerializer(playerlist, many=True)
-    return Response(status=status.HTTP_200_OK, data={"data": serializers.data})
-
+    elif request.method == 'POST':
+        serializer = TeamCreatedSerializer(data=request.data)
+        xx = serializer.create(validated_data=request.data)
+        return Response(status=status.HTTP_200_OK)
+    
 
 @api_view(["GET"])
 def getTeamPlayers(request):
     userlist = TeamPlayers.objects.all()
-    serializers = UsersSerializer(userlist, many=True)
+    serializers = TeamPlayersSerializer(userlist, many=True)
     return Response(status=status.HTTP_200_OK, data={"data": serializers.data})
 
 
 @api_view(["GET"])
 def getSeriesList(request):
     userlist = SeriesList.objects.all()
-    serializers = UsersSerializer(userlist, many=True)
+    serializers = SeriesListSerializer(userlist, many=True)
     return Response(status=status.HTTP_200_OK, data={"data": serializers.data})
 
 
@@ -63,6 +66,11 @@ def getSeriesSquads(request):
     serializers = UsersSerializer(userlist, many=True)
     return Response(status=status.HTTP_200_OK, data={"data": serializers.data})
 
+@api_view(["GET"])
+def getMatches(request):
+    userlist = Matches.objects.all()
+    serializers = MatchesSerializer(userlist, many=True)
+    return Response(status=status.HTTP_200_OK, data={"data": serializers.data})
 
 
 

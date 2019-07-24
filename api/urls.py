@@ -9,5 +9,5 @@ urlpatterns = [
     url(r'^TeamPlayersData/$', views.getTeamPlayers, name="team_players"),
     url(r'^SeriesListData/$', views.getSeriesList, name="series_list"),
     url(r'^SeriesSquadsData/$', views.getSeriesSquads, name="series_squads"),
-    url(r'^PlayerPointsData/$', views.getPlayerPoints, name="player_points"),
+    url(r'^MatchData/$', views.getMatches, name="matches"),
 ]
