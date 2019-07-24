@@ -17,6 +17,7 @@ export default class Players extends Component {
       players:[],
       search:'',
       role:'',
+      myTeam:[],
       addedPlayers:[],
       wicketkeeper: 0,
       batsman: 0,
@@ -24,11 +25,13 @@ export default class Players extends Component {
       allrounder: 0,
       searchPlayer1:[],
       availableBalance:100,
+      loading:true,
     };
     this.handleShow = this.handleShow.bind(this);
     this.SubmitteamHandler = this.SubmitteamHandler.bind(this);
     this.loadPlayers = this.loadPlayers.bind(this);
     this.loadTeamPlayers = this.loadTeamPlayers.bind(this);
+    this.CurrentTeamPlayers = this.CurrentTeamPlayers.bind(this);
     this.allrounderHandler = this.allrounderHandler.bind(this);
     this.batsmanHandler = this.batsmanHandler.bind(this);
     this.bowlerHandler = this.bowlerHandler.bind(this);
@@ -39,8 +42,9 @@ export default class Players extends Component {
   }
 
   componentWillMount(){
+    console.log("hi");
     this.loadPlayers();
-    //this.loadTeamPlayers();
+    this.loadTeamPlayers();
   }
 
   async loadPlayers()
@@ -53,8 +57,9 @@ export default class Players extends Component {
       const data = promise.data;
       console.log(data);
       this.setState({
-          players:data
-        });
+        players:data
+      });
+      this.CurrentTeamPlayers();
     }
   }
 
@@ -64,10 +69,38 @@ export default class Players extends Component {
     const status = promise.status;
     if(status===200)
     {
-      const data = promise.data.data;
-      console.log(data);
-      this.setState({addedPlayers:data});
+        const data = promise.data.data;
+        console.log(data);
+        //bal = this.state.availableBalance - bal;
+        this.setState({
+            myTeam:data
+        });
     }
+    return status;
+  }
+
+  CurrentTeamPlayers(){
+    let myPlayers=[];  
+    this.state.myTeam.forEach((obj, i) => {
+        console.log("hi");
+        this.state.players.forEach((obj2, i2) => { 
+            console.log(obj.Players,obj2.id);
+            if(obj.Players === obj2.id){
+                myPlayers.push(obj2);
+            }
+        })
+    });
+    console.log(myPlayers);
+    var total = myPlayers.reduce(function (accumulator, pilot) {
+        return accumulator + pilot.credit;
+      }, 0);
+
+    let balance = 100-total;
+    this.setState({
+        addedPlayers:myPlayers,
+        availableBalance:balance
+    });
+    console.log(this.state.addedPlayers);
   }
 
   updateSearch(event){
@@ -164,17 +197,22 @@ export default class Players extends Component {
           data += '{ "name":"'+value.name+'","role":"'+value.role+'","country":"'+value.country+'","image":"'+value.image+'" },'
       })
       data+=' }'*/
-      var headers = {
-        'content_type':'application/json',
-      }
-      //var datai=[];
-      this.state.addedPlayers.map(async function (value){
-            //datai = value;
-            const response = await axios.post("http://localhost:8000/dream11/api/PlayerData/",value,headers);
-            if(response.status === 200){
-                console.log("inserted successfully");
-            }
-      })
+      if(window.confirm("Are you sure you want to confirm this changes?")){
+        var ser = {Series_name: this.props.match.params.Series_name,User_id:2,Match_no:3};
+        const response = await axios.post("http://localhost:8000/dream11/api/TeamCreatedData/",ser,headers);
+        var headers = {
+            'content_type':'application/json',
+        }
+        
+        //var datai=[];
+        this.state.addedPlayers.map(async function (value){
+                //datai = value;
+                const response = await axios.post("http://localhost:8000/dream11/api/PlayerData/",value,headers);
+                if(response.status === 200){
+                    console.log("inserted successfully");
+                }
+        })
+    }
 
   }
 
@@ -216,8 +254,10 @@ export default class Players extends Component {
   }
 
   render() {
-    console.log(this.props.match.params.Home_team);
-    console.log(this.props.match.params.Away_team);
+    
+    let home = this.props.match.params.Home_team;
+    let away = this.props.match.params.Away_team;
+    let series = this.props.match.params.Series_name;
     //console.log(this.state.role);
     let searchPlayer;
     if( this.state.role.indexOf("batsman") !== -1){
@@ -432,8 +472,11 @@ export default class Players extends Component {
         </div>
         <div className="container-fluid">
             <div className="buttfix">
-            <Link to={`/dream11/core/login/loggedIN/MyTeam/`} >
-                <button type="button" className="btn button5" onClick={this.SubmitteamHandler}>Submit Team</button>
+                <button type="button" className="btn button5" onClick={this.SubmitteamHandler}>Comfirm Team</button>
+            </div>
+            <div className="buttfix">
+            <Link to={`/dream11/core/login/loggedIN/MyTeam/${home}/${away}/${series}/`} >
+                <button type="button" className="btn button5" >Submit Team</button>
             </Link>
             </div>
 

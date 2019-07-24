@@ -3,6 +3,22 @@ body {
     background-color: #D3D3D3;
 }
 
+.balance {
+    display: inline-block;
+}
+
+.aich3 {
+    text-align: center;
+    color: #2F4F4F;
+}
+
+h3 {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    color: #0a4657;
+    text-align: center;
+}
+
 
 /*.cards {
     width: 100%;

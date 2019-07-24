@@ -14,9 +14,9 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Route path="/dream11/core/login/loggedIN/"  exact component={Dashboard} />
-        <Route path="/dream11/core/login/loggedIN/players/:Home_team/:Away_team/"  component={Players} />
+        <Route path="/dream11/core/login/loggedIN/players/:Home_team/:Away_team/:Series_name"  component={Players} />
         <Route path="/dream11/core/login/loggedIN/players/profile/:name/:country/"  component={Profile} />
-        <Route path="/dream11/core/login/loggedIN/MyTeam/"  component={MyTeam} />
+        <Route path="/dream11/core/login/loggedIN/MyTeam/:home/:away/:series/"  component={MyTeam} />
       </BrowserRouter>
     );
   }

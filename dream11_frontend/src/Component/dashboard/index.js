@@ -42,7 +42,7 @@ class Dashboard extends Component {
             <div className="text">
                 <h6><span className="card__category">{value.home_team}  VS  {value.away_team}</span></h6>
             </div>
-            <Link to={`/dream11/core/login/loggedIN/players/${value.home_team}/${value.away_team}`}>
+            <Link to={`/dream11/core/login/loggedIN/players/${value.home_team}/${value.away_team}/${value.Series_name}`}>
               <div className="btn">
                 <span></span>
               </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Route} from "./index";
+import {Link} from "react-router-dom";
 
 import axios from "axios";
 import './css/playerListCard.css';
@@ -20,7 +21,7 @@ class MyTeam extends Component {
         this.loadTeamPlayers = this.loadTeamPlayers.bind(this);
      }
 
-    componentWillMount(){
+    componentDidMount(){
         this.loadPlayers();
         this.loadTeamPlayers();
     }
@@ -51,9 +52,22 @@ class MyTeam extends Component {
         }
     }
 
+
     render() {
-        console.log(this.state.addedPlayers);
-        let myPlayers = this.state.players.filter(f => !this.state.addedPlayers.Players_id !== f.id);
+        let Home_team = this.props.match.params.home;
+        let Away_team = this.props.match.params.away;
+        let Series_name = this.props.match.params.series;
+        let myPlayers=[];  
+        this.state.addedPlayers.forEach((obj, i) => {
+            this.state.players.forEach((obj2, i2) => {
+                
+                if(obj.Players === obj2.id){
+                    myPlayers.push(obj2);
+                }
+            })
+        })
+        
+        //let myPlayers = this.state.players.filter(f => !this.state.addedPlayers.Players_id !== f.id);
         console.log(myPlayers);
         let addedBatsman;
         let addedBowler;
@@ -95,7 +109,6 @@ class MyTeam extends Component {
     
                 <div className="cards">
                     <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
-                    <h6>{value.name}</h6>
                 </div>
     
             </div>
@@ -107,7 +120,6 @@ class MyTeam extends Component {
     
                 <div className="cards">
                     <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
-                    <h6>{value.name}</h6>
                 </div>
     
             </div>
@@ -119,7 +131,6 @@ class MyTeam extends Component {
     
                 <div className="cards">
                     <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
-                    <h6>{value.name}</h6>
                 </div>
     
             </div>
@@ -131,7 +142,6 @@ class MyTeam extends Component {
     
                 <div className="cards">
                     <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
-                    <h6>{value.name}</h6>
                 </div>
     
             </div>
@@ -179,7 +189,9 @@ class MyTeam extends Component {
         </div>
         <div className="container-fluid">
             <div className="buttfix">
-                <button type="button" className="btn button5" onClick={this.SubmitteamHandler}>Submit Team</button>
+                <Link to={`/dream11/core/login/loggedIN/players/${Home_team}/${Away_team}/${Series_name}/`} >
+                    <button type="button" className="btn button5" >Modify Team</button>
+                </Link>
             </div>
 
         </div> 

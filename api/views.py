@@ -23,19 +23,28 @@ def getPlayers(request):
         xx = serializer.create(validated_data=request.data)
         print(xx.name)
         print(xx.role)
-        pp = TeamCreated.objects.get(pk=1)
+        pp = TeamCreated.objects.get(pk=2)
         player = Players.objects.get(name=xx.name, role=xx.role, country=xx.country, image=xx.image)
         player = TeamPlayers(Team_created=pp, Players=player)
         player.save()
         return Response(status=status.HTTP_200_OK)
 
 
-@api_view(["GET"])
+@api_view(["GET","POST"])
+@authentication_classes([])
+@permission_classes([])
+@parser_classes((JSONParser,))
 def getTeamCreated(request):
-    userlist = TeamCreated.objects.all()
-    serializers = UsersSerializer(TeamCreatedSerializer, many=True)
-    return Response(status=status.HTTP_200_OK, data={"data": serializers.data})
+    if request.method == 'GET':
+        userlist = TeamCreated.objects.all()
+        serializers = TeamCreatedSerializer(userlist, many=True)
+        return Response(status=status.HTTP_200_OK, data={"data": serializers.data})
 
+    elif request.method == 'POST':
+        serializer = TeamCreatedSerializer(data=request.data)
+        xx = serializer.create(validated_data=request.data)
+        return Response(status=status.HTTP_200_OK)
+    
 
 @api_view(["GET"])
 def getTeamPlayers(request):
