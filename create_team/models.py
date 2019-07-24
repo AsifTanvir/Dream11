@@ -11,7 +11,7 @@ class SeriesList(models.Model):
 
 class SeriesSquads(models.Model):
     Series_name = models.ForeignKey(SeriesList, on_delete=models.CASCADE)
-    Squad_player = models.TextField()
+    Squad_player = models.ForeignKey(Players, on_delete=models.CASCADE)
 
 class TeamCreated(models.Model):
     Series_name = models.ForeignKey(SeriesList, on_delete=models.CASCADE)
@@ -30,13 +30,16 @@ class Matches(models.Model):
     away_team = models.CharField(max_length=250)
     match_date = models.DateTimeField()
 
+    def __str__(self):
+        return self.home_team + ' VS ' + self.away_team + ' ' + str(self.match_date)
+
 class PlayerPoints(models.Model):
     player_id = models.ForeignKey(Players, on_delete=models.CASCADE)
     match_id = models.ForeignKey(Matches, on_delete=models.CASCADE)
     series_name = models.ForeignKey(SeriesList, on_delete=models.CASCADE)
     starting_eleven = models.IntegerField()
-    runs = models.IntegerField()
-    fours = models.IntegerField()
+    runs = models.FloatField()
+    fours = models.FloatField()
     sixes = models.IntegerField()
     strike_rate = models.IntegerField()
     fifty = models.IntegerField()
@@ -48,13 +51,13 @@ class PlayerPoints(models.Model):
     bonus = models.IntegerField()
     catch = models.IntegerField()
     runout_stumping = models.IntegerField()
-    total_points = models.IntegerField()
+    total_points = models.FloatField()
 
 class UserTeamPoints(models.Model):
     user_id = models.ForeignKey(Users, on_delete=models.CASCADE)
     series_name = models.ForeignKey(SeriesList, on_delete=models.CASCADE)
     match_id = models.ForeignKey(Matches, on_delete=models.CASCADE)
-    points = models.IntegerField()
+    points = models.FloatField()
     team = models.TextField()
 
 

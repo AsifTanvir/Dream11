@@ -2,8 +2,8 @@ from user_registration.models import Players, Users
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view,authentication_classes,permission_classes
-from .serializers import PlayersSerializer, UsersSerializer, TeamCreatedSerializer, TeamPlayersSerializer, SeriesSquadsSerializer, SeriesListSerializer
-from create_team.models import SeriesList,SeriesSquads,TeamCreated,TeamPlayers
+from .serializers import PlayersSerializer, UsersSerializer, TeamCreatedSerializer, TeamPlayersSerializer, SeriesSquadsSerializer, SeriesListSerializer, PlayerPointsSerializer
+from create_team.models import SeriesList,SeriesSquads,TeamCreated,TeamPlayers, PlayerPoints
 from rest_framework.decorators import parser_classes
 from rest_framework.parsers import JSONParser
 import json
@@ -34,6 +34,12 @@ def getPlayers(request):
 def getTeamCreated(request):
     userlist = TeamCreated.objects.all()
     serializers = UsersSerializer(TeamCreatedSerializer, many=True)
+    return Response(status=status.HTTP_200_OK, data={"data": serializers.data})
+
+@api_view(["GET"])
+def getPlayerPoints(request):
+    playerlist = PlayerPoints.objects.all()
+    serializers = PlayerPointsSerializer(playerlist, many=True)
     return Response(status=status.HTTP_200_OK, data={"data": serializers.data})
 
 

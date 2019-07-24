@@ -25,14 +25,16 @@ class Profile extends Component {
         super(props);
         this.state = {
             players:[],
-            
+            playerPoints:[],
         };
 
         this.loadPlayers = this.loadPlayers.bind(this);
+        this.loadPoints = this.loadPoints.bind(this);
      }
 
      componentWillMount(){
     this.loadPlayers();
+    this.loadPoints();
     }
 
   async loadPlayers()
@@ -46,13 +48,30 @@ class Profile extends Component {
     }
   }
 
+  async loadPoints()
+  {
+    const promise = await axios.get("http://localhost:8000/dream11/api/PlayerPointsData/");
+    const status = promise.status;
+    if(status===200)
+    {
+      const data = promise.data;
+        this.setState({playerPoints:data});
+        console.log(this.state.playerPoints);
+    }
+  }
+
     render() {
          console.log(this.props.match.params.name.toLowerCase());
          let playerI = this.state.players.filter(
               (player) => {
                   return player.name.toLowerCase().indexOf(this.props.match.params.name.toLowerCase()) !== -1 ;
                   });
-        console.log("bal");
+
+        let points = this.state.playerPoints.filter(
+            (pl) => {
+                return pl.id === this.props.match.params.id ;
+            });
+        console.log(points);
         console.log(playerI);
       return (
           <div>
@@ -85,7 +104,7 @@ class Profile extends Component {
                           <tbody>
                           <tr>
                               <td>1</td>
-                              <td>45</td>
+                              <td>{points.total_points}</td>
                           </tr>
                           <tr>
                               <td>2</td>

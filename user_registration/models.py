@@ -17,4 +17,4 @@ class Players(models.Model):
     credit = models.FloatField(default=None)
 
     def __str__(self):
-        return self.name + ' - ' + self.role + ' - ' + str(self.credit)
+        return self.name + ' - ' + self.role + ' - ' + self.country

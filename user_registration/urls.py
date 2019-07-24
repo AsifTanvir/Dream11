@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^register/login/$', views.registration, name="registration"),
     url(r'^login/$', views.login, name="login"),
     url(r'^Admin/$', views.Admin, name='admin'),
+    url(r'^update_points/$', views.update_user_points, name='update_points'),
     url(r'^Admin/csv/$', views.upload_csv, name='upload_csv'),
     url(r'^login/loggedIN/CRT/$', include('create_team.urls')),
 ]

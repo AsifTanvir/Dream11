@@ -1,6 +1,11 @@
 from rest_framework import serializers
 from user_registration.models import Players, Users
-from create_team.models import SeriesList,SeriesSquads,TeamCreated,TeamPlayers
+from create_team.models import SeriesList,SeriesSquads,TeamCreated,TeamPlayers, PlayerPoints
+
+class PlayerPointsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PlayerPoints
+        fields = '__all__'
 
 
 class PlayersSerializer(serializers.ModelSerializer):

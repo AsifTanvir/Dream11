@@ -7,25 +7,25 @@ class Dashboard extends Component {
     constructor(props){
         super(props);
         this.state = {
-            players:[],
+            upcoming_matches:[],
             
         };
 
-        this.loadPlayers = this.loadPlayers.bind(this);
+        this.loadUpcomingMatches = this.loadUpcomingMatches.bind(this);
      }
 
      componentWillMount(){
-    this.loadPlayers();
+    this.loadUpcomingMatches();
   }
 
-  async loadPlayers()
+  async loadUpcomingMatches()
   {
     const promise = await axios.get("http://localhost:8000/dream11/api/PlayerData/");
     const status = promise.status;
     if(status===200)
     {
       const data = promise.data.data;
-        this.setState({players:data});
+        this.setState({upcoming_matches:data});
     }
   }
 }

@@ -246,7 +246,7 @@ export default class Players extends Component {
         <div className="photo"><img src={value.image} /></div>
         <div className="content">
             <div className="text">
-                <Link to={`/dream11/core/login/loggedIN/${value.name}/${value.country}/`} >{value.name}</Link>
+                <Link to={`/dream11/core/login/loggedIN/${value.name}/${value.id}/`} >{value.name}</Link>
                 <h6><span className="card__category">{value.country}</span></h6>
             </div>
             <div className="btn" onClick={() => this.handleShow(value.name,value.role,value.country,value.image)}>
@@ -297,7 +297,7 @@ export default class Players extends Component {
 
             <div className="cards">
                 <div className="btnRmv" onClick={()=> this.removePlayer(value.name)}><span>&times;</span>  </div>
-                <Link to={`/dream11/core/login/loggedIN/${value.name}/${value.country}/`} >
+                <Link to={`/dream11/core/login/loggedIN/${value.name}/${value.id}/`} >
                     <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
                 </Link>
             </div>
@@ -312,7 +312,7 @@ export default class Players extends Component {
             <div className="cards">
 
                 <div className="btnRmv" onClick={()=> this.removePlayer(value.name)}><span>&times;</span>  </div>
-                <Link to={`/dream11/core/login/loggedIN/${value.name}/${value.country}/`} >
+                <Link to={`/dream11/core/login/loggedIN/${value.name}/${value.id}/`} >
                     <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
                 </Link>
             </div>
@@ -327,7 +327,7 @@ export default class Players extends Component {
             <div className="cards">
 
                 <div className="btnRmv" onClick={()=> this.removePlayer(value.name)}><span>&times;</span>  </div>
-                <Link to={`/dream11/core/login/loggedIN/${value.name}/${value.country}/`} >
+                <Link to={`/dream11/core/login/loggedIN/${value.name}/${value.id}/`} >
                     <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
                 </Link>
             </div>
@@ -341,7 +341,7 @@ export default class Players extends Component {
 
             <div className="cards">
                 <div className="btnRmv" onClick={()=> this.removePlayer(value.name)}><span>&times;</span>  </div>
-                <Link to={`/dream11/core/login/loggedIN/${value.name}/${value.country}/`} >
+                <Link to={`/dream11/core/login/loggedIN/${value.name}/${value.id}/`} >
                     <img className="card-img-top card_image" src={value.image} alt="Card image"></img>
                 </Link>
 
