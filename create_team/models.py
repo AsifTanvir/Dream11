@@ -60,5 +60,9 @@ class UserTeamPoints(models.Model):
     points = models.FloatField()
     team = models.TextField()
 
+class PrivateContest(models.Model):
+    contest_code =  models.CharField(max_length=10, unique=True)
+    contest_creator = models.ForeignKey(Users, on_delete=models.CASCADE)
+    participants = models.TextField()
 
 
