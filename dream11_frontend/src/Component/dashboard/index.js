@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './css/playerListCard.css';
 //import 'jquery';
 import axios from "axios";
+import Button from '@material-ui/core/Button';
 
 import { Link } from "react-router-dom";
 
@@ -43,9 +44,11 @@ class Dashboard extends Component {
                 <h6><span className="card__category">{value.home_team}  VS  {value.away_team}</span></h6>
             </div>
             <Link to={`/dream11/core/login/loggedIN/players/${value.home_team}/${value.away_team}/${value.Series_name}`}>
-              <div className="btn">
-                <span></span>
-              </div>
+              
+            <Button variant="contained" color="primary">
+              Hello World
+            </Button>
+
             </Link>
             
         </div>
@@ -54,8 +57,16 @@ class Dashboard extends Component {
 
     return(
       <div>
-      <div className="profilecontain">
-        {tagList}
+      <ul>
+        <li><a class="active" href="#home">Home</a></li>
+        <li><a href="#news">User</a></li>
+        <li><a href="#contact">Upcoming Matches</a></li>
+        <li><a href="#about">Points</a></li>
+      </ul>
+      <div className="asifbar">
+        <div className="profilecontain">
+          {tagList}
+        </div>
       </div>
       </div>
     );

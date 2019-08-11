@@ -24,6 +24,7 @@ def getPlayers(request):
         print(xx.name)
         print(xx.role)
         pp = TeamCreated.objects.get(pk=2)
+        #TeamPlayers.objects.filter(Team_created=pp).delete()
         player = Players.objects.get(name=xx.name, role=xx.role, country=xx.country, image=xx.image)
         player = TeamPlayers(Team_created=pp, Players=player)
         player.save()
