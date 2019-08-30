@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from user_registration.models import Players, Users
-from create_team.models import SeriesList,SeriesSquads,TeamCreated,TeamPlayers,Matches,UserTeamPoints
+from create_team.models import SeriesList,SeriesSquads,TeamCreated,TeamPlayers,Matches,UserTeamPoints, PlayerPoints, LeagueMembers, Leagues
 import datetime
 
 class PlayersSerializer(serializers.ModelSerializer):
@@ -71,3 +71,57 @@ class UserTeamPointsSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserTeamPoints
         fields = '__all__'
+
+class userPointsBymatch(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+    class Meta:
+        model = UserTeamPoints
+        fields = ['name','points']
+        
+    def get_name(self, obj):
+        return obj.user_id.name
+
+class getPointsOfPlayers(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+    class Meta:
+        model = PlayerPoints
+        fields = ['name','total_points']
+        
+    def get_name(self, obj):
+        return obj.player_id.name
+
+class getPointsByWeek(serializers.ModelSerializer):
+    date = serializers.SerializerMethodField()
+    homeTeam = serializers.SerializerMethodField()
+    awayTeam = serializers.SerializerMethodField()
+    class Meta:
+        model = PlayerPoints
+        fields = ['date','total_points','homeTeam','awayTeam']
+        
+    def get_date(self, obj):
+        return obj.match_id.match_date
+
+    def get_homeTeam(self, obj):
+        return obj.match_id.home_team
+
+    def get_awayTeam(self, obj):
+        return obj.match_id.away_team
+
+class getCertainLeagueMembersSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+    class Meta:
+        model = LeagueMembers
+        fields = ['name']
+        
+    def get_name(self, obj):
+        return obj.user.name
+    
+    
+class getLeaguesOfUser(serializers.ModelSerializer):
+    league_name =serializers.SerializerMethodField()
+    class Meta:
+        model = LeagueMembers
+        fields = ['league_name']
+        
+    def get_league_name(self, obj):
+        return obj.league.league_name

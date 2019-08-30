@@ -3,12 +3,19 @@ import {Route} from "./index";
 //import 'jquery';
 import axios from "axios";
 import  './css/profile.css';
+import Paper from '@material-ui/core/Paper';
+import MaterialTable from "material-table";
 
 class Profile extends Component {
      constructor(props){
         super(props);
         this.state = {
             players:[],
+            columns: [
+                { title: "Opponent", field: "awayTeam"},
+                { title: "Date", field: "date"},
+                { title: "Points", field: "total_points"}
+              ],
             playerPoints:[],
         };
 
@@ -34,14 +41,22 @@ class Profile extends Component {
 
   async loadPoints()
   {
-    const promise = await axios.get("http://localhost:8000/dream11/api/PlayerPointsData/");
-    const status = promise.status;
-    if(status===200)
-    {
-      const data = promise.data;
-        this.setState({playerPoints:data});
-        console.log(this.state.playerPoints);
+    let playerName = this.props.match.params.name;
+    var headers = {
+        'content_type':'application/json',
     }
+    
+    //var datai=[];
+    var ser = {name: playerName};
+    const response = await axios.post("http://localhost:8000/dream11/api/playerHistory/",ser,headers);
+            if(response.status === 200){
+                console.log("inserted successfully");
+                console.log(response.data.data);
+                let responsedata = response.data.data;
+                this.setState({
+                    playerPoints:responsedata
+                })
+            }
   }
 
     render() {
@@ -76,30 +91,18 @@ class Profile extends Component {
                   })
               }
                   <div className="container-fluid">
-                      <h2>History</h2>
-
-                      <table className="table table-hover">
-                          <thead>
-                          <tr>
-                              <th>Week</th>
-                              <th>Points</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr>
-                              <td>1</td>
-                              <td>{points.total_points}</td>
-                          </tr>
-                          <tr>
-                              <td>2</td>
-                              <td>30</td>
-                          </tr>
-                          <tr>
-                              <td>3</td>
-                              <td>48</td>
-                          </tr>
-                          </tbody>
-                      </table>
+                    <Paper>
+                        <MaterialTable
+                            title="Player Stats"
+                            columns={this.state.columns}
+                            data={this.state.playerPoints}
+                            options={{
+                                search: false,
+                                paging: false
+                            }}
+                            
+                        />
+                  </Paper>
                   </div>
           </div>
       );

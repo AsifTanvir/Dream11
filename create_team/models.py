@@ -65,4 +65,12 @@ class PrivateContest(models.Model):
     contest_creator = models.ForeignKey(Users, on_delete=models.CASCADE)
     participants = models.TextField()
 
+class Leagues(models.Model):
+    owner = models.ForeignKey(Users, on_delete=models.CASCADE)
+    league_name = models.CharField(default="", max_length=250)
+    password = models.CharField(max_length=250)
+    
+class LeagueMembers(models.Model):
+    league = models.ForeignKey(Leagues, on_delete=models.CASCADE)
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
 

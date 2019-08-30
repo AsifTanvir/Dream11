@@ -7,7 +7,9 @@ import { BrowserRouter, Route, Link ,Switch } from "react-router-dom";
 import Players from "./Component/Players/index";
 import Profile from "./Component/Players/profile";
 import MyTeam from "./Component/Players/team";
-import Dashboard from "./Component/dashboard/index";
+// import Dashboard from "./Component/dashboard/Dashboard";
+// import Dashboard from "./Component/dashboard/index";
+import Dashboard from "./Component/nion_ui/DashBoard";
 
 class App extends Component {
   render() {

@@ -10,4 +10,11 @@ urlpatterns = [
     url(r'^SeriesListData/$', views.getSeriesList, name="series_list"),
     url(r'^SeriesSquadsData/$', views.getSeriesSquads, name="series_squads"),
     url(r'^MatchData/$', views.getMatches, name="matches"),
+    url(r'^LeaderBoard/$', views.UserPointsByMatch, name="userPoints"),
+    url(r'^FantasyStats/$', views.playerPointByMatch, name="fantasystats"),
+    url(r'^playerHistory/$', views.getPointsOfCertainPlayer, name="pointOfAPlayer"),
+    url(r'^leagues/$', views.saveLeague, name="saveLeague"),
+    url(r'^joinLeague/$', views.joinLeague, name="joinLeague"),
+    url(r'^leagueInfo/$', views.LeagueInfo, name="leagueInfo"),
+    url(r'^userLeagues/$', views.userLeagues, name="userLeagues"),
 ]
