@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 
 import { Link } from "react-router-dom";
 
-class Dashboard extends Component {
+export class Dashboard extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -43,12 +43,10 @@ class Dashboard extends Component {
             <div className="text">
                 <h6><span className="card__category">{value.home_team}  VS  {value.away_team}</span></h6>
             </div>
-            <Link to={`/dream11/core/login/loggedIN/players/${value.home_team}/${value.away_team}/${value.Series_name}`}>
-              
-            <Button variant="contained" color="primary">
-              Hello World
-            </Button>
-
+            <Link to={`/dashboard/players/${value.home_team}/${value.away_team}/${value.Series_name}`}>
+              <div className="btn">
+                <span></span>
+              </div>
             </Link>
             
         </div>

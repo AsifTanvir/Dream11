@@ -5,6 +5,7 @@ class Users(models.Model):
     name = models.CharField(default="", max_length=250)
     email = models.CharField(max_length=250)
     password = models.CharField(max_length=250)
+    contests = models.TextField(default="[]")
 
     def __str__(self):
         return self.email+' - '+self.password
@@ -17,4 +18,4 @@ class Players(models.Model):
     credit = models.FloatField(default=None)
 
     def __str__(self):
-        return self.name + ' - ' + self.role + ' - ' + str(self.credit)
+        return self.name + ' - ' + self.role + ' - ' + self.country

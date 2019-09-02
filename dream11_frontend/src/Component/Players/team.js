@@ -189,7 +189,7 @@ class MyTeam extends Component {
         </div>
         <div className="container-fluid">
             <div className="buttfix">
-                <Link to={`/dream11/core/login/loggedIN/players/${Home_team}/${Away_team}/${Series_name}/`} >
+                <Link to={`/dashboard/players/${Home_team}/${Away_team}/${Series_name}/`} >
                     <button type="button" className="btn button5" >Modify Team</button>
                 </Link>
             </div>

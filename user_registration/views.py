@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .crawler import crawling,insert_player_info_db
-from .data_insert  import insert_crawled_data, insert_credit, insert_non_ranked_credit, insert_all_players
+from .data_insert  import insert_crawled_data, insert_credit, insert_non_ranked_credit, insert_all_players, user_team_insert, insert_match_scorecard, insert_user_points
 from django.shortcuts import render
 from .models import Users,Players
 import csv
@@ -72,11 +72,17 @@ def register(request):
 
 def Admin(request):
     # crawling()
-    Players.objects.all().delete()
+    # Players.objects.all().delete()
     # insert_crawled_data()
     # insert_credit()
     # insert_non_ranked_credit()
-    insert_all_players()
+    # insert_all_players()
+    # user_team_insert()
+    insert_match_scorecard(908, 1, 'ICC Cricket World Cup 2019')
     return render(request, 'home/admin.html',{})
+
+def update_user_points(request):
+    insert_user_points(1, 1, 'ICC Cricket World Cup 2019')
+    return render(request, 'home/admin.html')
 
 # Create your views here.
