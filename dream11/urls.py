@@ -21,5 +21,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^dream11/', include('user_registration.urls')),
     url(r'^dream11/core/', include('core.urls')),
-    url(r'^dream11/api/', include('api.urls'))
+    url(r'^dream11/api/', include('api.urls')),
+    url(r'^rest-auth/', include('rest_auth.urls')),
+    url(r'^rest-auth/registration/', include('rest_auth.registration.urls'))
 ]

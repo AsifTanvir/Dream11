@@ -80,7 +80,7 @@ export default function Contest() {
     </div>
     <br />
     <div>
-      <Link to={`/dream11/core/login/loggedIN/MyLeagues/${userID}/${userName}/`} >
+      <Link to={`/dashboard/MyLeagues/${userID}/${userName}/`} >
       <Fab
           variant="extended"
           size="medium"

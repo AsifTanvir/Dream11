@@ -9,18 +9,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Link as RouterLink, withRouter } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
-import Dashboard from '../dashboard';
 import { MenuList, MenuItem } from '@material-ui/core';
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/auth';
 
 
 
@@ -59,9 +54,15 @@ const useStyles = makeStyles(theme => ({
       flexGrow: 1,
       padding: theme.spacing(3),
     },
+    linkhover: {
+      background: 'inherit',
+      '&:hover': {
+         color: 'inherit',
+      },
+    }
   }));
 
-export function NavDrawer(props) {
+function NavDrawer(props) {
   const { container, location: {pathname} } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -73,14 +74,14 @@ export function NavDrawer(props) {
   const name = 'MS Dhoni'
   const country = 'India'
 
-  const upcomingmatch = "/dream11/core/login/loggedIN/"
-  const leaderboard = "/dream11/core/login/loggedIN/leaderboard/"
-  const fantasystats = "/dream11/core/login/loggedIN/fantasystats/"
-  const contests = "/dream11/core/login/loggedIN/contests/"
-  const createTeam = "/dream11/core/login/loggedIN/players/"
-  const myteam = "/dream11/core/login/loggedIN/MyTeam/"
-  const profile = "/dream11/core/login/loggedIN/profile/"
-  const myleague = "/dream11/core/login/loggedIN/MyLeagues/"
+  const upcomingmatch = "/dashboard/"
+  const leaderboard = "/dashboard/leaderboard/"
+  const fantasystats = "/dashboard/fantasystats/"
+  const contests = "/dashboard/contests/"
+  const createTeam = "/dashboard/players/"
+  const myteam = "/dashboard/MyTeam/"
+  const profile = "/dashboard/profile/"
+  const myleague = "/dashboard/MyLeagues/"
 
   function handleDrawerToggle() {
     setMobileOpen(!mobileOpen);
@@ -133,68 +134,85 @@ export function NavDrawer(props) {
   );
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            className={classes.menuButton}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap className={classes.title}>
-            Dream 11
-          </Typography>
-          <Button color="inherit">
-              My Account
-          </Button>
-          <Button color="inherit">Sign Out</Button>
-        </Toolbar>
-      </AppBar>
-      <nav className={classes.drawer} aria-label="mailbox folders">
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Hidden smUp implementation="css">
-          <Drawer
-            container={container}
-            variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden xsDown implementation="css">
-          <Drawer
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            variant="permanent"
-            open
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-      </nav>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-            {props.children}
-      </main>
+    <div>
+      {
+        props.isAuthenticated ?
+        <div className={classes.root}>
+          <CssBaseline />
+          <AppBar position="fixed" className={classes.appBar}>
+            <Toolbar>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                className={classes.menuButton}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h6" noWrap className={classes.title}>
+                Dream 11
+              </Typography>
+              <Button color="inherit">
+                  My Account
+              </Button>
+              <Button variant='text' color="inherit" onClick={props.logout} 
+                component={Link} href="/login/" className={classes.linkhover} variant='inherit' underline='hover'
+              >
+                Sign Out
+              </Button>
+            </Toolbar>
+          </AppBar>
+          <nav className={classes.drawer} aria-label="mailbox folders">
+            {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+            <Hidden smUp implementation="css">
+              <Drawer
+                container={container}
+                variant="temporary"
+                anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+                open={mobileOpen}
+                onClose={handleDrawerToggle}
+                classes={{
+                  paper: classes.drawerPaper,
+                }}
+                ModalProps={{
+                  keepMounted: true, // Better open performance on mobile.
+                }}
+              >
+                {drawer}
+              </Drawer>
+            </Hidden>
+            <Hidden xsDown implementation="css">
+              <Drawer
+                classes={{
+                  paper: classes.drawerPaper,
+                }}
+                variant="permanent"
+                open
+              >
+                {drawer}
+              </Drawer>
+            </Hidden>
+          </nav>
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+                {props.children}
+          </main>
+        </div>
+        :
+        window.location.replace('/login/')
+      }
     </div>
   );
 }
 
-export default withRouter(NavDrawer)
+const mapDispatchToProps = dispatch => {
+  return {
+      logout: () => dispatch(actions.logout()) 
+  }
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(NavDrawer));
 
 NavDrawer.propTypes = {
     /**
