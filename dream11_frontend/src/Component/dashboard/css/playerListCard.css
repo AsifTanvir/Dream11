@@ -1,7 +1,6 @@
 @import 'https://fonts.googleapis.com/css?family=Raleway';
 body {
     background-color: #D3D3D3;
-    margin: 0;
 }
 
 
@@ -89,40 +88,6 @@ body {
         display: block;
         margin-bottom: 20px;
     }
-}
-
-ul {
-    list-style-type: none;
-    position: fixed;
-    margin: 0;
-    padding: 0;
-    width: 25%;
-    background-color: #f1f1f1;
-    height: 100%;
-    overflow: auto;
-}
-
-li a {
-    display: block;
-    color: #000;
-    padding: 8px 16px;
-    text-decoration: none;
-}
-
-li a.active {
-    background-color: #2f4f4f;
-    color: white;
-}
-
-li a:hover:not(.active) {
-    background-color: #555;
-    color: white;
-}
-
-.asifbar {
-    margin-left: 25%;
-    padding: 1px 16px;
-    height: 1000px;
 }
 
 
@@ -215,9 +180,7 @@ h2 {
     height: 100px;
   border-top-left-radius: 12px;
 border-top-right-radius: 12px;
-
 }
-
 .card__info-hover {
     position: absolute;
     padding: 6px;
@@ -225,7 +188,6 @@ border-top-right-radius: 12px;
   opacity: 0;
   top: 0;
 }
-
 .card__img--hover {
   transition: 0.2s all ease-out;
     background-size: cover;
@@ -237,7 +199,6 @@ border-top-right-radius: 12px;
   border-top-left-radius: 12px;
 border-top-right-radius: 12px;
 top: 0;
-
 }
 .card {
   margin-right: 25px;
@@ -253,7 +214,6 @@ top: 0;
   box-shadow: 0px 30px 18px -8px rgba(0, 0, 0,0.1);
     transform: scale(1.10, 1.10);
 }
-
 .card__info {
 z-index: 2;
   background-color: #fff;
@@ -285,12 +245,10 @@ border-bottom-right-radius: 12px;
     height: 100%;
     opacity: 0.3;
 }
-
 .card:hover .card__info {
     background-color: transparent;
     position: relative;
 }
-
 .card:hover .card__info-hover {
     opacity: 1;
 }

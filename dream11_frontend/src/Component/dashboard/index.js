@@ -55,17 +55,9 @@ export class Dashboard extends Component {
 
     return(
       <div>
-      <ul>
-        <li><a class="active" href="#home">Home</a></li>
-        <li><a href="#news">User</a></li>
-        <li><a href="#contact">Upcoming Matches</a></li>
-        <li><a href="#about">Points</a></li>
-      </ul>
-      <div className="asifbar">
         <div className="profilecontain">
           {tagList}
         </div>
-      </div>
       </div>
     );
   }
