@@ -76,6 +76,17 @@ export const authSignup = (username, email, password1, password2) => {
             localStorage.setItem('token', token);
             localStorage.setItem('expirationDate', expirationDate);
             localStorage.setItem('user', username);
+            axios.post('http://localhost:8000/dream11/api/userSignupOld/', {
+                name: username,
+                email: email,
+                password: password1,
+            }, {
+                'content_type':'application/json',
+            }).then((respone) => {
+                console.log(respone);
+            }).catch(err => {
+                console.log(err);
+            })
             dispatch(authSuccess(token, username));
             dispatch(checkAuthTimeout(3600));
         })
