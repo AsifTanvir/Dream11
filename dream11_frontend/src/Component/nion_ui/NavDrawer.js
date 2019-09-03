@@ -6,6 +6,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
+import Avatar from '@material-ui/core/Avatar';
+import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
@@ -54,6 +58,10 @@ const useStyles = makeStyles(theme => ({
       flexGrow: 1,
       padding: theme.spacing(3),
     },
+    bigAvatar: {
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(1)
+    },
     linkhover: {
       background: 'inherit',
       '&:hover': {
@@ -67,12 +75,6 @@ function NavDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
-  const home_team = 'AUSTRALIA'
-  const away_team = 'ENGLAND'
-  const Series_name = 'ICC CRICKET WORLD CUP 2019'
-  const name = 'MS Dhoni'
-  const country = 'India'
 
   const upcomingmatch = "/dashboard/"
   const leaderboard = "/dashboard/leaderboard/"
@@ -89,7 +91,13 @@ function NavDrawer(props) {
 
   const drawer = (
     <div>
-      <div className={classes.toolbar} />
+      {/* <div className={classes.toolbar} /> */}
+      <Box display="flex" justifyContent="center">
+        <Grid flexDirection='column' justifyContent="center">
+          <Avatar alt="A" src="https://cdn.pixabay.com/photo/2016/03/31/19/58/avatar-1295429_960_720.png" className={classes.bigAvatar} />
+          <Typography variant='h6' >{props.username}</Typography>
+        </Grid>
+      </Box>
       <Divider />
       <MenuList>
         <MenuItem 
@@ -97,28 +105,28 @@ function NavDrawer(props) {
           to={upcomingmatch} 
           selected={(upcomingmatch == pathname) || pathname.includes(createTeam) || pathname.includes(myteam) || pathname.includes(profile)}
         >
-            Upcoming Matches
+          <LabelOutlinedIcon /> Upcoming Matches
         </MenuItem>
         <MenuItem 
           component={RouterLink} 
           to={leaderboard} 
           selected={leaderboard === pathname}
         >
-          Leaderboard
+          <LabelOutlinedIcon /> Leaderboard
         </MenuItem>
         <MenuItem 
           component={RouterLink} 
           to={contests} 
           selected={(contests === pathname) || pathname.includes(myleague)}
         >
-          Contests
+          <LabelOutlinedIcon /> Contests
         </MenuItem>
         <MenuItem 
           component={RouterLink} 
           to={fantasystats} 
           selected={fantasystats === pathname}
         >
-          Fantasy Stats
+          <LabelOutlinedIcon /> Fantasy Stats
         </MenuItem>
       </MenuList>
       {/* <List>
@@ -153,8 +161,8 @@ function NavDrawer(props) {
               <Typography variant="h6" noWrap className={classes.title}>
                 Dream 11
               </Typography>
-              <Button color="inherit">
-                  My Account
+              <Button color="inherit" >
+                  Welcome {props.username} 
               </Button>
               <Button variant='text' color="inherit" onClick={props.logout} 
                 component={Link} href="/login/" className={classes.linkhover} variant='inherit' underline='hover'

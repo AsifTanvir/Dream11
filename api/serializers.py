@@ -2,7 +2,7 @@ from rest_framework import serializers
 from user_registration.models import Players, Users
 from create_team.models import SeriesList,SeriesSquads,TeamCreated,TeamPlayers,Matches,UserTeamPoints, PlayerPoints, LeagueMembers, Leagues
 import datetime
-
+from django.shortcuts import get_object_or_404
 class PlayersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Players
@@ -125,3 +125,48 @@ class getLeaguesOfUser(serializers.ModelSerializer):
         
     def get_league_name(self, obj):
         return obj.league.league_name
+
+class UserSerializerPost(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(max_length=200)
+    name = serializers.CharField(max_length=250)
+    
+    def save(self):
+        email = self.validated_data['email']
+        password = self.validated_data['password']
+        name = self.validated_data['name']
+        print(email)
+        print(password)
+        print(name)
+        #signer = Signer()
+        #hash_pass = signer.sign(password).split(":", 1)
+        #get_object_or_404(Users, email=email, password=hash_pass[1])
+        newUser = Users(name=name, password=password, email=email)
+        print(newUser.email, newUser.password)
+        newUser.save()
+        return newUser
+        
+    def validate_password(self, value):
+        if len(value) < 8:
+            raise serializers.ValidationError("password is less than 8 characters long")
+        return value
+
+class UserSerializerGet(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(max_length=200)
+    
+    def save(self):
+        email = self.validated_data['email']
+        password = self.validated_data['password']
+        print(email)
+        print(password)
+        #signer = Signer()
+        #hash_pass = signer.sign(password).split(":", 1)
+        #print(hash_pass[1])
+        get_object_or_404(Users, email=email, password=password)
+        return True
+        
+    def validate_password(self, value):
+        if len(value) < 8:
+            raise serializers.ValidationError("password is less than 8 characters long")
+        return value
