@@ -22,14 +22,45 @@ def getPlayers(request):
     elif request.method == 'POST':
         serializer = PlayersSerializer(data=request.data)
         xx = serializer.create(validated_data=request.data)
-        print(xx.name)
-        print(xx.role)
-        pp = TeamCreated.objects.get(pk=2)
-        #TeamPlayers.objects.filter(Team_created=pp).delete()
+        #homeTeam = request.data['hometeam']
+        #awayTeam = request.data['awayteam']
+        #userId = request.data['userName']
+        matchID = request.data['Match_id']
+        userName = request.data['User_Name']
+        print(matchID,userName)
+        teamc =Matches.objects.get(id=matchID)
+        user = Users.objects.get(name=userName)
+        pp = TeamCreated.objects.get(match=teamc,User_id=user)
         player = Players.objects.get(name=xx.name, role=xx.role, country=xx.country, image=xx.image)
-        player = TeamPlayers(Team_created=pp, Players=player)
-        player.save()
-        return Response(status=status.HTTP_200_OK)
+        try:
+            obj = TeamPlayers.objects.get(Team_created=pp, Players=player)
+            return Response(status=status.HTTP_302_FOUND)
+        except TeamPlayers.DoesNotExist:
+            player = TeamPlayers(Team_created=pp, Players=player)
+            player.save()
+            return Response(status=status.HTTP_200_OK)
+            
+
+@api_view(["GET","POST"])
+@authentication_classes([])
+@permission_classes([])
+@parser_classes((JSONParser,))
+def removePlayers(request):
+    if request.method == 'POST':
+        name = request.data['name']
+        country = request.data['country']
+        image = request.data['image']
+        role = request.data['role']
+        matchID = request.data['Match_id']
+        userName = request.data['User_Name']
+        player = Players.objects.get(name=name, role=role, country=country, image=image)
+        pp = TeamCreated.objects.get(match__pk=matchID,User_id__name=userName)
+        try:
+            obj = TeamPlayers.objects.get(Team_created=pp, Players=player)
+            obj.delete()
+            return Response(status=status.HTTP_200_OK)
+        except TeamPlayers.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 @api_view(["GET","POST"])
@@ -45,12 +76,21 @@ def getTeamCreated(request):
     elif request.method == 'POST':
         serializer = TeamCreatedSerializer(data=request.data)
         xx = serializer.create(validated_data=request.data)
-        return Response(status=status.HTTP_200_OK)
+        if xx == True:
+            return Response(status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_302_FOUND)
     
 
-@api_view(["GET"])
+@api_view(["POST","GET"])
 def getTeamPlayers(request):
-    userlist = TeamPlayers.objects.all()
+    print(request.data)
+    matchID = request.data['Match_id']
+    userName = request.data['User_Name']
+    teamc =Matches.objects.get(id=matchID)
+    user = Users.objects.get(name=userName)
+    teamcr = TeamCreated.objects.get(match=teamc,User_id=user)
+    userlist = TeamPlayers.objects.filter(Team_created=teamcr)
     serializers = TeamPlayersSerializer(userlist, many=True)
     return Response(status=status.HTTP_200_OK, data={"data": serializers.data})
 
@@ -169,6 +209,8 @@ def saveLeague(request):
         user = get_object_or_404(Users, name=name)
         newLeague = Leagues(owner=user, league_name=league_name,password=password)
         newLeague.save()
+        leagueJoin = LeagueMembers(league=newLeague, user=user)
+        leagueJoin.save()
         return Response(status=status.HTTP_200_OK)  
     elif request.method == 'GET':
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
@@ -238,7 +280,7 @@ def userLeagues(request):
     if request.method == 'POST':
         print(request.data)
         name = request.data['name']
-        user = get_object_or_404(Users, id=name)
+        user = get_object_or_404(Users, name=name)
         listi = get_list_or_404(LeagueMembers, user=user)
         serializer = getLeaguesOfUser(listi, many=True)
         return Response(data={"data": serializer.data},status=status.HTTP_200_OK)  

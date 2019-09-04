@@ -27,8 +27,8 @@ class FantasyStats extends Component {
       }
 
     async loadStats(){
-        const home = 'INDIA'
-        const away = 'NEW-ZEALAND'
+        const home = 'Bangladesh'
+        const away = 'Sri Lanka'
         var ser = {hometeam: home, awayteam: away};
         var headers = {
             'content_type':'application/json',

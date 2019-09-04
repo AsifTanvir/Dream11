@@ -20,7 +20,7 @@ class Leagues extends Component {
         this.loadLeagues();
     }
     async loadLeagues(){
-        let userName=this.props.match.params.userID;
+        let userName=this.props.match.params.userName;
         /*var data ='{ ';
         this.state.addedPlayers.map(function (value) {
             data += '{ "name":"'+value.name+'","role":"'+value.role+'","country":"'+value.country+'","image":"'+value.image+'" },'

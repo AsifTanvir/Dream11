@@ -82,7 +82,7 @@ def Admin(request):
     return render(request, 'home/admin.html',{})
 
 def update_user_points(request):
-    insert_user_points(1, 1, 'ICC Cricket World Cup 2019')
+    insert_match_scorecard(1, 1, 'ICC Cricket World Cup 2019')
     return render(request, 'home/admin.html')
 
 # Create your views here.

@@ -10,17 +10,18 @@ import { DialogContent } from '@material-ui/core';
 import CreateLeague from './CreateLeague';
 import JoinLeague from './JoinLeague';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 const Container = styled.div`
  text-align: center;
 `;
 
 
-export default function Contest() {
+export function Contest(props) {
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
-  let userName = 'nion';
-  let userID = '1';
+  let userName = props.username;
+  //let userID = '1';
   function handleClickOpen() {
     setOpen(true);
   }
@@ -54,7 +55,7 @@ export default function Contest() {
           <DialogContentText>
             Enter the Name and Password for Your new League
           </DialogContentText>
-              <CreateLeague />
+              <CreateLeague handlec = {handleClose}></CreateLeague>
           </DialogContent>
       </Dialog>
     </div>
@@ -80,7 +81,7 @@ export default function Contest() {
     </div>
     <br />
     <div>
-      <Link to={`/dashboard/MyLeagues/${userID}/${userName}/`} >
+      <Link to={`/dashboard/MyLeagues/${userName}/`} >
       <Fab
           variant="extended"
           size="medium"
@@ -97,3 +98,11 @@ export default function Contest() {
     
   );
 }
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.token !== null,
+    username: state.user
+  }
+}
+
+export default connect(mapStateToProps, null)(Contest);

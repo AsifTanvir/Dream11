@@ -43,13 +43,25 @@ class MyTeam extends Component {
 
     async loadTeamPlayers()
     {
-        const promise = await axios.get("http://localhost:8000/dream11/api/TeamPlayersData/");
-        const status = promise.status;
-        if(status===200)
-        {
-        const data = promise.data.data;
-        this.setState({addedPlayers:data});
+        var ser = {Match_id: this.props.match.params.id,User_Name:this.props.match.params.userName};
+        var headers = {
+            'content_type':'application/json',
         }
+        console.log(ser);
+        const response = await axios.post("http://localhost:8000/dream11/api/TeamPlayersData/",ser,headers);
+        
+        if(response.status===200)
+        {
+            const data = response.data.data;
+            console.log(data);
+            
+            //bal = this.state.availableBalance - bal;
+            this.setState({
+                addedPlayers:data
+            });
+            
+        }
+        return response.status;
     }
 
 
@@ -61,7 +73,7 @@ class MyTeam extends Component {
         this.state.addedPlayers.forEach((obj, i) => {
             this.state.players.forEach((obj2, i2) => {
                 
-                if(obj.Players === obj2.id){
+                if(obj.name === obj2.name){
                     myPlayers.push(obj2);
                 }
             })
@@ -189,7 +201,7 @@ class MyTeam extends Component {
         </div>
         <div className="container-fluid">
             <div className="buttfix">
-                <Link to={`/dashboard/players/${Home_team}/${Away_team}/${Series_name}/`} >
+                <Link to={`/dashboard/players/${Home_team}/${Away_team}/${ this.props.match.params.id}/`} >
                     <button type="button" className="btn button5" >Modify Team</button>
                 </Link>
             </div>

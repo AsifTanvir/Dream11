@@ -8,9 +8,10 @@ import './css/search.js';
 
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import Profile from "./profile";
+import { connect } from 'react-redux';
 
 
-export default class Players extends Component {
+export class Players extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,6 +27,7 @@ export default class Players extends Component {
       searchPlayer1:[],
       availableBalance:100,
       loading:true,
+      removedPlayers:[],
     };
     this.handleShow = this.handleShow.bind(this);
     this.SubmitteamHandler = this.SubmitteamHandler.bind(this);
@@ -43,8 +45,9 @@ export default class Players extends Component {
 
   componentWillMount(){
     console.log("hi");
-    this.loadPlayers();
     this.loadTeamPlayers();
+    this.loadPlayers();
+    
   }
 
   async loadPlayers()
@@ -59,43 +62,53 @@ export default class Players extends Component {
       this.setState({
         players:data
       });
-      this.CurrentTeamPlayers();
+      
     }
   }
 
   async loadTeamPlayers()
   {
-    const promise = await axios.get("http://localhost:8000/dream11/api/TeamPlayersData/");
-    const status = promise.status;
-    if(status===200)
+    var ser = {Match_id: this.props.match.params.id,User_Name:this.props.username};
+    var headers = {
+        'content_type':'application/json',
+    }
+    console.log(this.props.match.params.id,this.props.username);
+    const response = await axios.post("http://localhost:8000/dream11/api/TeamPlayersData/",ser,headers);
+    
+    if(response.status===200)
     {
-        const data = promise.data.data;
+        const data = response.data.data;
         console.log(data);
+        
         //bal = this.state.availableBalance - bal;
         this.setState({
             myTeam:data
         });
+        
     }
-    return status;
+    this.CurrentTeamPlayers();
   }
 
   CurrentTeamPlayers(){
     let myPlayers=[];  
+    console.log(this.state.myTeam)
     this.state.myTeam.forEach((obj, i) => {
-        console.log("hi");
+        //console.log("hi");
         this.state.players.forEach((obj2, i2) => { 
-            console.log(obj.Players,obj2.id);
-            if(obj.Players === obj2.id){
+            //console.log(obj.Players,obj2.id);
+            if(obj.name === obj2.name){
                 myPlayers.push(obj2);
             }
         })
     });
+    console.log("hoga");
     console.log(myPlayers);
     var total = myPlayers.reduce(function (accumulator, pilot) {
         return accumulator + pilot.credit;
       }, 0);
 
     let balance = 100-total;
+
     this.setState({
         addedPlayers:myPlayers,
         availableBalance:balance
@@ -197,22 +210,81 @@ export default class Players extends Component {
           data += '{ "name":"'+value.name+'","role":"'+value.role+'","country":"'+value.country+'","image":"'+value.image+'" },'
       })
       data+=' }'*/
-      if(window.confirm("Are you sure you want to confirm this changes?")){
-        var ser = {Series_name: this.props.match.params.Series_name,User_id:2,Match_no:3};
-        const response = await axios.post("http://localhost:8000/dream11/api/TeamCreatedData/",ser,headers);
-        var headers = {
-            'content_type':'application/json',
-        }
-        
-        //var datai=[];
-        this.state.addedPlayers.map(async function (value){
-                //datai = value;
-                const response = await axios.post("http://localhost:8000/dream11/api/PlayerData/",value,headers);
-                if(response.status === 200){
-                    console.log("inserted successfully");
-                }
+
+        let wkt = 0;
+        let bats = 0;
+        let bowl = 0;
+        let allr = 0;
+        let Home_teamP = 0;
+        let away_teamp = 0;
+        let homeTeam = this.props.match.params.Home_team;
+        let awayTeam = this.props.match.params.Away_team;
+
+        this.state.addedPlayers.map( function (value){ 
+            if( value.role.toLowerCase().indexOf("wicketkeeper") !== -1)
+                wkt = wkt+1;
+            else if(value.role.toLowerCase().indexOf("batsman") !== -1)
+                bats = bats+1;
+            else if(value.role.toLowerCase().indexOf("bowler") !== -1)
+                bowl = bowl+1;
+            else if( value.role.toLowerCase().indexOf("allrounder") !== -1)
+                allr = allr+1;
         })
-    }
+
+        this.state.addedPlayers.map( function (value){ 
+            if( value.country.toLowerCase().indexOf(homeTeam) !== -1)
+                Home_teamP = Home_teamP + 1;
+            else if(value.country.toLowerCase().indexOf(awayTeam) !== -1)
+                away_teamp = away_teamp + 1;
+        })
+        
+        let balance = this.state.availableBalance;
+        console.log(wkt,bats,bowl,allr,balance,this.state.addedPlayers.length)
+      if(this.state.addedPlayers.length == 11 && wkt >=1 && bats >=3 && bowl >=3 && allr >= 1 && balance>=0 ){
+        if(window.confirm("Are you sure you want to confirm this changes?")){
+        
+            var ser = {Match_id: this.props.match.params.id,User_Name:this.props.username};
+            console.log(ser);
+            console.log("Team creting");
+            var headers = {
+                'content_type':'application/json',
+            }
+            const response = await axios.post("http://localhost:8000/dream11/api/TeamCreatedData/",ser,headers);
+            
+            
+            //var datai=[];
+            let id = this.props.match.params.id;
+            let user = this.props.username;
+            this.state.removedPlayers.map( async function (value){
+                var sser = {name: value.name,role:value.role,image:value.image,country:value.country,Match_id: id,User_Name:user};
+                const response = await axios.post("http://localhost:8000/dream11/api/removePlayers/",sser,headers);
+                if(response.status === 200){
+                    console.log("removed successfully");
+                }
+                else if(response.status === 404){
+                    console.log("Player not in the team");
+                }
+            })
+            
+            this.state.addedPlayers.map(async function (value){
+                    //datai = value;
+                    console.log(value.name)
+                    console.log(id,user);
+                    var sser = {name: value.name,role:value.role,image:value.image,country:value.country,Match_id: id,User_Name:user};
+                
+                    
+                    const response = await axios.post("http://localhost:8000/dream11/api/PlayerData/",sser,headers);
+                    if(response.status === 200){
+                        console.log("inserted successfully");
+                    }
+            })
+            
+        }
+      }
+      else {
+          window.alert("You must have atleast 1 wicketkeeper,3 batsmen,3 bowlers,1 allrounder and total of 11 players in your team an atmost 6 players from a team.");
+      }
+      
 
   }
 
@@ -220,6 +292,9 @@ export default class Players extends Component {
     if(window.confirm("Are you sure you want to remove this player?")){
         let taskList = this.state.addedPlayers.filter((player) => {
             return player.name !== index.name;
+        })
+        let removedP = this.state.addedPlayers.filter((player) => {
+            return player.name == index.name;
         })
         let wkt = this.state.wicketkeeper;
         let bats = this.state.batsman;
@@ -245,6 +320,7 @@ export default class Players extends Component {
             batsman:bats,
             bowler:bowl,
             availableBalance:balance,
+            removedPlayers:removedP,
         })
     }
   }
@@ -321,7 +397,7 @@ export default class Players extends Component {
             <div className="content">
                 <div className="text">
                     <Link to={`/dashboard/profile/${value.name}/${value.country}`} >{value.name}</Link>
-                    <h6><span className="card__category">{value.credit}</span></h6>
+                    <h6><span className="card__category">Credit:{value.credit}</span></h6>
                     <h6><span className="card__category">{value.country}</span></h6>
                 </div>
                 <div className="btn" onClick={() => this.handleShow(value.name,value.role,value.country,value.image,value.credit)}>
@@ -368,7 +444,7 @@ export default class Players extends Component {
 
     let wicketkeeperGeseGa =addedWkt.map(function (value,index)
     {
-        return  <div class="column">
+        return  <div className="column">
 
             <div className="cards">
                 <div className="btnRmv" onClick={()=> this.removePlayer(value)}><span>&times;</span>  </div>
@@ -382,7 +458,7 @@ export default class Players extends Component {
 
     let batsmanGeseGa =addedBatsman.map(function (value,index)
     {
-        return  <div class="column">
+        return  <div className="column">
 
             <div className="cards">
 
@@ -397,7 +473,7 @@ export default class Players extends Component {
 
     let allrounderGeseGa =addedAllrounder.map(function (value,index)
     {
-        return  <div class="column">
+        return  <div className="column">
 
             <div className="cards">
 
@@ -412,7 +488,7 @@ export default class Players extends Component {
 
     let bowlerGeseGa =addedBowler.map(function (value,index)
     {
-        return  <div class="column">
+        return  <div className="column">
 
             <div className="cards">
                 <div className="btnRmv" onClick={()=> this.removePlayer(value)}><span>&times;</span>  </div>
@@ -472,11 +548,11 @@ export default class Players extends Component {
         </div>
         <div className="container-fluid">
             <div className="buttfix">
-                <button type="button" className="btn button5" onClick={this.SubmitteamHandler}>Comfirm Team</button>
+                <button type="button" className="btn button5" onClick={this.SubmitteamHandler} style={{font: "15px"}}>Confirm Team</button>
             </div>
             <div className="buttfix">
-            <Link to={`/dashboard/MyTeam/${home}/${away}/${series}/`} >
-                <button type="button" className="btn button5" >My Team</button>
+            <Link to={`/dashboard/MyTeam/${home}/${away}/${series}/${this.props.match.params.id}/${this.props.username}`} >
+                <button type="button" className="btn button5" style={{font: "15px"}}>My Team</button>
             </Link>
             </div>
 
@@ -524,3 +600,13 @@ export default class Players extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+    return {
+      isAuthenticated: state.token !== null,
+      username: state.user
+    }
+  }
+  
+export default connect(mapStateToProps, null)(Players);
+

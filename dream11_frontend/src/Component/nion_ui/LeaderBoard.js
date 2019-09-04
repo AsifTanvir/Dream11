@@ -25,8 +25,8 @@ class LeaderBoard extends Component {
       }
 
     async loadLeaderBoard(){
-        const home = 'INDIA'
-        const away = 'NEW-ZEALAND'
+        const home = 'Bangladesh'
+        const away = 'Sri Lanka'
         var ser = {hometeam: home, awayteam: away};
         var headers = {
             'content_type':'application/json',

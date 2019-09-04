@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import axios from "axios";
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-export default class CreateLeague extends Component {
+export class CreateLeague extends Component {
 
     constructor(props) {
         super(props);
@@ -43,8 +44,10 @@ export default class CreateLeague extends Component {
         console.log(this.state.pass);
     };
     async SubmitteamHandler(){
-        let userName = 'nion';
-        let userID = '1';
+        this.props.handlec();
+        let userName = this.props.username;
+        console.log(userName);
+        //let userID = '1';
         /*var data ='{ ';
         this.state.addedPlayers.map(function (value) {
             data += '{ "name":"'+value.name+'","role":"'+value.role+'","country":"'+value.country+'","image":"'+value.image+'" },'
@@ -100,3 +103,12 @@ export default class CreateLeague extends Component {
   }
   
 }
+
+const mapStateToProps = state => {
+    return {
+      isAuthenticated: state.token !== null,
+      username: state.user
+    }
+  }
+  
+export default connect(mapStateToProps, null)(CreateLeague);

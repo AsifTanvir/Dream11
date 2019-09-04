@@ -18,4 +18,5 @@ urlpatterns = [
     url(r'^leagueInfo/$', views.LeagueInfo, name="leagueInfo"),
     url(r'^userLeagues/$', views.userLeagues, name="userLeagues"),
     url(r'^userSignupOld/$', views.getUser, name="usersignupold"),
+    url(r'^removePlayers/$', views.removePlayers, name="usersignupold"),
 ]

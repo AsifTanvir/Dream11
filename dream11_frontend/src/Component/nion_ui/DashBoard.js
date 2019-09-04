@@ -25,13 +25,13 @@ class DashBoard extends Component {
                 <BrowserRouter>
                     <NavDrawer {...this.props}>
                         <Route exact path="/dashboard/"  exact component={D} />
-                        <Route path="/dashboard/players/:Home_team/:Away_team/:Series_name"  component={Players} />
-                        <Route path="/dashboard/MyTeam/:home/:away/:series/"  component={MyTeam} />
+                        <Route path="/dashboard/players/:Home_team/:Away_team/:id"  component={Players} />
+                        <Route path="/dashboard/MyTeam/:home/:away/:series/:id/:userName"  component={MyTeam} />
                         <Route path="/dashboard/profile/:name/:country/" component={Profile} />
                         <Route path="/dashboard/leaderboard/" component={LeaderBoard} />
                         <Route path="/dashboard/fantasystats/" component={FantasyStats} />
                         <Route path="/dashboard/contests/" component={Contest} />
-                        <Route path="/dashboard/MyLeagues/:userID/:userName/" component={Leagues} />
+                        <Route path="/dashboard/MyLeagues/:userName/" component={Leagues} />
                         <Route path="/dashboard/league_list/:league_name/" component={LeagueInfo} />
                     </NavDrawer>
                 </BrowserRouter>

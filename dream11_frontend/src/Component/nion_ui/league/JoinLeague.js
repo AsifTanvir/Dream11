@@ -9,6 +9,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import axios from "axios";
 import { Link as RouterLink } from 'react-router-dom';
 import { Redirect } from 'react-router';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -25,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-export default class JoinLeague extends Component {
+export class JoinLeague extends Component {
 
     constructor(props) {
         super(props);
@@ -43,7 +44,7 @@ export default class JoinLeague extends Component {
         })
     };
     async JoinLeagueHandler(){
-        let userName='nion';
+        let userName=this.props.username;
         /*var data ='{ ';
         this.state.addedPlayers.map(function (value) {
             data += '{ "name":"'+value.name+'","role":"'+value.role+'","country":"'+value.country+'","image":"'+value.image+'" },'
@@ -95,7 +96,7 @@ export default class JoinLeague extends Component {
     
                 />
             </form> 
-            <RouterLink to={`/dream11/core/login/loggedIN/league_list/${this.state.name}/`}>
+            <RouterLink to={`/dashboard/league_list/${this.state.name}/`}>
               <Button variant="raised" size="small" onClick={this.JoinLeagueHandler} >
               <ExitToAppIcon />
                   Join
@@ -107,3 +108,12 @@ export default class JoinLeague extends Component {
   }
   
 }
+
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.token !== null,
+    username: state.user
+  }
+}
+
+export default connect(mapStateToProps, null)(JoinLeague);

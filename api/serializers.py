@@ -41,25 +41,42 @@ class TeamCreatedSerializer(serializers.ModelSerializer):
         model = TeamCreated
         fields = '__all__'
     def create(self, validated_data):
-        series_name = validated_data.get('Series_name')
-        print(series_name)
-        match = validated_data.get('Match_no')
+        match = validated_data.get('Match_id')
         date = datetime.datetime.now()
         print(date.strftime("%x"))
-        #date = validated_data.get('27/7/19')
-        user = validated_data.get('User_id')
-        series = SeriesList.objects.get(Series_name=series_name)
-        users = Users.objects.get(pk=user)
-        ss = TeamCreated(Series_name=series, Match_no=match,Match_day=date,User_id=users)
-        ss.save()
-        #student.set_password(validated_data.get('password')
-        return ss
+        user = validated_data.get('User_Name')
+        users = Users.objects.get(name=user)
+        match1 = Matches.objects.get(pk=match)
+        try:
+            ss = TeamCreated.objects.get(match=match1,User_id=users)
+            return False
+        except TeamCreated.DoesNotExist:
+            ss1 = TeamCreated(match=match1,User_id=users)
+            ss1.save()
+            return True
+        
 
 
 class TeamPlayersSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+    image = serializers.SerializerMethodField()
+    role = serializers.SerializerMethodField()
+    country = serializers.SerializerMethodField()
     class Meta:
         model = TeamPlayers
-        fields = '__all__'
+        fields = ['name','image','role','country']
+        
+    def get_name(self, obj):
+        return obj.Players.name
+
+    def get_image(self, obj):
+        return obj.Players.image
+
+    def get_role(self, obj):
+        return obj.Players.role
+
+    def get_country(self, obj):
+        return obj.Players.country
 
 class MatchesSerializer(serializers.ModelSerializer):
     class Meta:

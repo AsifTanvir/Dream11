@@ -22,8 +22,8 @@ class Players(models.Model):
 
 class Users(models.Model):
     name = models.CharField(default="noName", max_length=250)
-    email = models.EmailField(max_length=250, primary_key=True)
+    email = models.EmailField(max_length=250)
     password = models.CharField(max_length=250,validators=[MaxLengthValidator(limit_value=8, message="password must be at least 8 characters long")])
-
+    contests = models.CharField(max_length=100,default='')
     def __str__(self):
         return self.name+' - '+self.email
