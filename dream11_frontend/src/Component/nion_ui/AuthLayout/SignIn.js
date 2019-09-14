@@ -15,6 +15,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/auth';
+import CustomizedSnackbars from './snackbar';
+import Chip from '@material-ui/core/Chip';
+import FaceIcon from '@material-ui/icons/Face';
+import DoneIcon from '@material-ui/icons/Done';
 
 function Copyright() {
   return (
@@ -52,19 +56,51 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2)
-  }
+  },
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+  },
+  chip: {
+    margin: theme.spacing(1),
+  },
 }));
 
 function SignIn(props) {
   const classes = useStyles();
   const [value, setValue] = useState({username: '', password: ''});
+  const [snackBar, setSnackBar] = useState(false);
+
+  const setSnackBarFlag = () => {
+    setSnackBar(true)
+}
+
+const clearSnackBarFlag = () => {
+  setSnackBar(false)
+}
   
 
   let errorMessage = null;
     if (props.error) {
         errorMessage = (
-            <p>{props.error.message}</p>
+            <CustomizedSnackbars flag={snackBar}  action={clearSnackBarFlag} message="Username And Password don't Match" variant="error"/>
         );
+        
+    }
+
+    let errorMessageFlag = null;
+    if (props.error) {
+        errorMessageFlag = "error";
+        
+    }
+
+    function handleDelete() {
+      alert('You clicked the delete icon.');
+    }
+  
+    function handleClick() {
+      alert('You clicked the Chip.');
     }
 
   return (
@@ -99,6 +135,7 @@ function SignIn(props) {
                 autoFocus
                 onChange={e => setValue({...value, username: e.target.value})}
               />
+            
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -122,9 +159,17 @@ function SignIn(props) {
                 color="primary"
                 className={classes.submit}
                 onClick={(e) => {
+                    
                     e.preventDefault();  
+                    //console.log(props.onAuth(value.username, value.password));
+                    
                     props.onAuth(value.username, value.password);
+                    if(errorMessageFlag == "error"){
+                      setSnackBarFlag();
+                    }
                     return <Redirect push to="/dashboard/" />
+                    
+                    
                     // props.history.push('/dream11/core/login/loggedIN/');
                       
                     
@@ -144,7 +189,7 @@ function SignIn(props) {
                   </Link>
                 </Grid>
               </Grid>
-              {errorMessage}
+              
             </form>
           </div>
           <Box mt={8}>
@@ -153,6 +198,7 @@ function SignIn(props) {
           </Container>
         </div>
       }
+      {errorMessage}
     </div>
   );
 }

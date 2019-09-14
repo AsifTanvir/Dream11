@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import Paper from '@material-ui/core/Paper';
 import MaterialTable from "material-table";
 import axios from "axios";
+import Link from "@material-ui/core/Link";
+import { Link as RouterLink } from 'react-router-dom';
+import { Redirect } from 'react-router';
 
 class Leagues extends Component {
     constructor(props) {
@@ -13,8 +16,10 @@ class Leagues extends Component {
                 { title: "League Name", field: "league_name"},
               ],
             leagues:[],
+            selectedRow: null,
         }
         this.loadLeagues = this.loadLeagues.bind(this);
+        this.visitLeague = this.visitLeague.bind(this);
     }
     componentDidMount(){
         this.loadLeagues();
@@ -48,6 +53,13 @@ class Leagues extends Component {
                 })
             }
     }
+
+    visitLeague(leagueName){
+        let lName = leagueName.league_name
+        console.log(lName)
+        
+        return <Link href={`/dashboard/league_list/${lName}/`} />
+    }
     
     render() {
         return (
@@ -56,11 +68,11 @@ class Leagues extends Component {
                     title="My Leagues"
                     columns={this.state.columns}
                     data={this.state.leagues}
+                    onRowClick={((evt, selectedRow) => <Link href={`/dashboard/league_list/${selectedRow.league_name}/`} />)}
                     options={{
                         search: true,
-                        paging: false
+                        paging: false,
                     }}
-                    
                 />
             </Paper>
         )

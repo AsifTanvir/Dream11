@@ -68,7 +68,6 @@ class MyTeam extends Component {
     render() {
         let Home_team = this.props.match.params.home;
         let Away_team = this.props.match.params.away;
-        let Series_name = this.props.match.params.series;
         let myPlayers=[];  
         this.state.addedPlayers.forEach((obj, i) => {
             this.state.players.forEach((obj2, i2) => {
