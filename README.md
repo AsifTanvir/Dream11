@@ -57,4 +57,5 @@ Here we discuss about the architecture of the project and give the
 details of the modules of the project with the use case diagrams.
 
 **ERD**:
-1. Create Team and Modify Team:![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
+1. Create Team and Modify Team:![ERD1](https://user-images.githubusercontent.com/33545768/94069442-696f7500-fe12-11ea-9d86-db552f39ab2f.png)
+2. Create League: ![ERD2](https://user-images.githubusercontent.com/33545768/94069629-bce1c300-fe12-11ea-8445-b25566f260c0.png)
